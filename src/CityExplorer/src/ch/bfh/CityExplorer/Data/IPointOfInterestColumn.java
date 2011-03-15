@@ -7,8 +7,8 @@ public interface IPointOfInterestColumn {
 	String CATEGORY_ID = "category_id";
 	String NAME = "name";
 	String DESCRIPTION = "desc";
-	String LONGITUDE = "long";
 	String LATITUDE = "lat";
+	String LONGITUDE = "long";
 	String URL = "url";
 	
 }

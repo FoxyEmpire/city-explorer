@@ -1,7 +1,10 @@
 package ch.bfh.CityExplorer.Activities;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import android.app.AlertDialog;
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.Drawable;
@@ -12,6 +15,7 @@ import ch.bfh.CityExplorer.Data.IPointOfInterestColumn;
 import ch.bfh.CityExplorer.Data.PointOfInterestTbl;
 
 import com.google.android.maps.GeoPoint;
+import com.google.android.maps.ItemizedOverlay;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapView;
 import com.google.android.maps.Overlay;
@@ -47,6 +51,15 @@ public class MapsActivity extends MapActivity {
         //mapOverlays.add(itemizedOverlay);
         
         
+        String name;
+        String desc;
+        double lat;
+        double lng;
+        GeoPoint point;
+        OverlayItem overlayitem;
+        Drawable drawable = this.getResources().getDrawable(R.drawable.androidmarker);
+        MapsItemizedOverlay itemizedOverlay = new MapsItemizedOverlay(drawable, this);
+        List<Overlay> mapOverlays = mapView.getOverlays();
         
         db = new CityExplorerDatabase(this).getReadableDatabase();
         
@@ -56,7 +69,15 @@ public class MapsActivity extends MapActivity {
         cursor.moveToFirst();
         
         while (cursor.isAfterLast() == false) {
-        	
+        	name = cursor.getString(cursor.getColumnIndex(IPointOfInterestColumn.NAME));
+        	desc = cursor.getString(cursor.getColumnIndex(IPointOfInterestColumn.DESCRIPTION));
+        	lat = cursor.getDouble(cursor.getColumnIndex(IPointOfInterestColumn.LATITUDE));
+        	lng = cursor.getDouble(cursor.getColumnIndex(IPointOfInterestColumn.LONGITUDE));
+        	point = new GeoPoint((int) (lat * 1E6), (int) (lng * 1E6));
+        	overlayitem = new OverlayItem(point, name, desc);
+        	itemizedOverlay.addOverlay(overlayitem);
+        	mapOverlays.add(itemizedOverlay);
+
         	cursor.moveToNext();
         }        
     }
@@ -65,6 +86,47 @@ public class MapsActivity extends MapActivity {
 	protected boolean isRouteDisplayed() {
 		// TODO Auto-generated method stub
 		return false;
+	}
+	
+	private class MapsItemizedOverlay extends ItemizedOverlay {
+		
+		private ArrayList<OverlayItem> mOverlays = new ArrayList<OverlayItem>();
+		private Context mContext;
+		
+		public MapsItemizedOverlay(Drawable defaultMarker) {
+			super(boundCenterBottom(defaultMarker));
+		}
+		
+		public MapsItemizedOverlay(Drawable defaultMarker, Context context) {
+			super(boundCenterBottom(defaultMarker));
+			mContext = context;
+		}
+		
+		public void addOverlay(OverlayItem overlay) {
+			mOverlays.add(overlay);
+			populate();
+		}
+
+		@Override
+		protected OverlayItem createItem(int arg0) {
+			return mOverlays.get(arg0);
+		}
+
+		@Override
+		public int size() {
+			return mOverlays.size();
+		}
+		
+		@Override
+		protected boolean onTap(int index) {
+			OverlayItem item = mOverlays.get(index);
+			AlertDialog.Builder dialog = new AlertDialog.Builder(mContext);
+			dialog.setTitle(item.getTitle());
+			dialog.setMessage(item.getSnippet());
+			dialog.show();
+			return true;
+		}
+		
 	}
 
 }
