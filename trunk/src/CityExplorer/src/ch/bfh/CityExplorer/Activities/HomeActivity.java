@@ -1,7 +1,7 @@
 package ch.bfh.CityExplorer.Activities;
 
 import ch.bfh.CityExplorer.R;
-import ch.bfh.CityExplorer.StartActivity;
+import ch.bfh.CityExplorer.Activities.MapsActivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,7 +23,7 @@ public class HomeActivity extends Activity {
     }
     
     protected void OnClickMap(View view){
-    	Intent intent = new Intent(this,StartActivity.class);
+    	Intent intent = new Intent(this, MapsActivity.class);
 		startActivity(intent);
     }
 }
