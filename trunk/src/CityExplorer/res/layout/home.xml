@@ -5,7 +5,7 @@
   android:layout_height="fill_parent">
     <TableRow android:layout_height="fill_parent" android:layout_width="fill_parent" android:id="@+id/tableRow1" android:layout_weight="50">
         <ImageButton android:src="@drawable/icon" android:background="@drawable/custombutton" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_weight="50" android:id="@+id/btnMap"></ImageButton>
-        <ImageButton android:src="@drawable/icon" android:id="@+id/Button01" android:background="@drawable/custombutton" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_weight="50"></ImageButton>
+        <ImageButton android:src="@drawable/icon" android:background="@drawable/custombutton" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_weight="50" android:id="@+id/btnListOfPointsOfInterests"></ImageButton>
     </TableRow>
     <TableRow android:id="@+id/tableRow2" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_weight="50">
     	<ImageButton android:src="@drawable/icon" android:id="@+id/Button01" android:background="@drawable/custombutton" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_weight="50"></ImageButton>
