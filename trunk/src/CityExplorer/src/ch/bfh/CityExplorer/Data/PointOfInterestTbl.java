@@ -16,8 +16,8 @@ public class PointOfInterestTbl implements IPointOfInterestColumn {
 		+ "category_id INTEGER REFERENCES " + CategoryTbl.TABLE_NAME + "(id),"
 		+ "name VARCHAR(100),"
 		+ "desc VARCHAR(1000),"
-		+ "long INTEGER,"
-		+ "lat INTEGER,"
+		+ "lat FLOAT,"
+		+ "long FLOAT,"
 		+ "url VARCHAR(255)"
 		+ ");";
 	
@@ -27,7 +27,7 @@ public class PointOfInterestTbl implements IPointOfInterestColumn {
 	public static final String SQL_DROP = "DROP TABLE IF EXISTS " + TABLE_NAME;
 	
 	public static final String STMT_FULL_INSERT = "INSERT INTO " + TABLE_NAME
-		+ " ( city_id, category_id, name, desc, long, lat, url ) VALUES ( ?, ?, ?, ?, ?, ?, ? )";
+		+ " ( city_id, category_id, name, desc, lat, long, url ) VALUES ( ?, ?, ?, ?, ?, ?, ? )";
 		
 	/** Liste aller bekannten Attribute. */
 	public static final String[] ALL_COLUMNS = new String[] {
@@ -36,8 +36,8 @@ public class PointOfInterestTbl implements IPointOfInterestColumn {
 		CATEGORY_ID,
 		NAME,
 		DESCRIPTION,
-		LONGITUDE,
 		LATITUDE,
+		LONGITUDE,
 		URL
 	};
 	

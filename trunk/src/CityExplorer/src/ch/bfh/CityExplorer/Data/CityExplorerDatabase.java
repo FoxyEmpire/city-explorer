@@ -58,8 +58,8 @@ public class CityExplorerDatabase extends SQLiteOpenHelper {
 		stmtInsertPoi.bindLong(2, categoryIds.get("Bauwerke"));
 		stmtInsertPoi.bindString(3, "Grossmünster");
 		stmtInsertPoi.bindString(4, "Das Wahrzeichen Zürichs beherrscht mit der mächtigen Doppelturmfassade den oberen Limmatraum");
-		stmtInsertPoi.bindLong(5, 8544167);
-		stmtInsertPoi.bindLong(6, 47370000);
+		stmtInsertPoi.bindDouble(5, 47.370000);
+		stmtInsertPoi.bindDouble(6, 8.544167);
 		stmtInsertPoi.bindString(7, "http://www.grossmuenster.ch");
 		poiIds.put("Grossmünster", stmtInsertPoi.executeInsert());
 
@@ -67,8 +67,8 @@ public class CityExplorerDatabase extends SQLiteOpenHelper {
 		stmtInsertPoi.bindLong(2, categoryIds.get("Restaurants"));
 		stmtInsertPoi.bindString(3, "Zeughauskeller");
 		stmtInsertPoi.bindString(4, "Schweizer Küche im Grossformat: Würste, Rösti u.a. Das Traditionslokal wird von Einheimischen wir von Touristen besucht.");
-		stmtInsertPoi.bindLong(5, 8539818);
-		stmtInsertPoi.bindLong(6, 47370328);
+		stmtInsertPoi.bindDouble(5, 47.370328);
+		stmtInsertPoi.bindDouble(6, 8.539818);
 		stmtInsertPoi.bindString(7, "http://www.zeughauskeller.ch");
 		poiIds.put("Zeughauskeller", stmtInsertPoi.executeInsert());
 
@@ -76,8 +76,8 @@ public class CityExplorerDatabase extends SQLiteOpenHelper {
 		stmtInsertPoi.bindLong(2, categoryIds.get("Kultur"));
 		stmtInsertPoi.bindString(3, "Landesmuseum Zürich");
 		stmtInsertPoi.bindString(4, "Gleich neben dem Hauptbahnhofscheint ein trutziges Schloss zu stehen - tatsächlich handelt es sich bei der Gebäudegruppe um das Landesmuseum, die bedeutendste Sammlung zur Schweizer Kultur und Geschichte.");
-		stmtInsertPoi.bindLong(5, 8541004);
-		stmtInsertPoi.bindLong(6, 47379024);
+		stmtInsertPoi.bindDouble(5, 47.379024);
+		stmtInsertPoi.bindDouble(6, 8.541004);
 		stmtInsertPoi.bindString(7, "http://www.landesmuseum.ch");
 		poiIds.put("Landesmuseum Zürich", stmtInsertPoi.executeInsert());
 		
