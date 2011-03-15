@@ -19,44 +19,75 @@ public class CityExplorerDatabase extends SQLiteOpenHelper {
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		db.execSQL(ICityTbl.SQL_CREATE);
-		db.execSQL(ICategory.SQL_CREATE);
-		db.execSQL(IPointOfInterestTbl.SQL_CREATE);
+		db.execSQL(CityTbl.SQL_CREATE);
+		db.execSQL(CategoryTbl.SQL_CREATE);
+		db.execSQL(PointOfInterestTbl.SQL_CREATE);
 		
-		SQLiteStatement stmtInsertCity = db.compileStatement(ICityTbl.STMT_FULL_INSERT);
+		// Cities
+		Map<String, Long> cityIds = new HashMap<String, Long>();
+		SQLiteStatement stmtInsertCity = db.compileStatement(CityTbl.STMT_FULL_INSERT);
+		
 		stmtInsertCity.bindString(1, "Zürich");
 		stmtInsertCity.bindString(2, "Information");
 		stmtInsertCity.bindString(3, "http://www.zuerich.ch");
 		stmtInsertCity.bindString(4, "zuerich.mp4");
-
-		Map<String, Long> cityIds = new HashMap<String, Long>();
 		cityIds.put("Zürich", stmtInsertCity.executeInsert());
-		
-		
-		SQLiteStatement stmtInsertCat = db.compileStatement(ICategory.STMT_FULL_INSERT);
-		stmtInsertCat.bindString(1, "Bauwerke");
-		
+				
+		// Categories
 		Map<String, Long> categoryIds = new HashMap<String, Long>();
+		SQLiteStatement stmtInsertCat = db.compileStatement(CategoryTbl.STMT_FULL_INSERT);
+		
+		stmtInsertCat.bindString(1, "Bauwerke");		
 		categoryIds.put("Bauwerke", stmtInsertCat.executeInsert());
 		
+		stmtInsertCat.bindString(1, "Kinos");
+		categoryIds.put("Kinos", stmtInsertCat.executeInsert());
 		
-		SQLiteStatement stmtInsertPoi = db.compileStatement(IPointOfInterestTbl.STMT_FULL_INSERT);
-		stmtInsertPoi.bindLong(1, cityIds.get("Zürich"));
-		stmtInsertPoi.bindString(2, "Grossmünster");
-		stmtInsertPoi.bindString(3, "Das Wahrzeichen Zürichs beherrscht mit der mächtigen Doppelturmfassade den oberen Limmatraum");
-		stmtInsertPoi.bindLong(4, 8544167);
-		stmtInsertPoi.bindLong(5, 47370000);
-		stmtInsertPoi.bindString(6, "http://www.grossmuenster.ch");
-
+		stmtInsertCat.bindString(1, "Restaurants");
+		categoryIds.put("Restaurants", stmtInsertCat.executeInsert());
+		
+		stmtInsertCat.bindString(1, "Kultur");
+		categoryIds.put("Kultur", stmtInsertCat.executeInsert());
+				
+		// Points of Interest
 		Map<String, Long> poiIds = new HashMap<String, Long>();
+		SQLiteStatement stmtInsertPoi = db.compileStatement(PointOfInterestTbl.STMT_FULL_INSERT);
+
+		// Grossmünster
+		stmtInsertPoi.bindLong(1, cityIds.get("Zürich"));
+		stmtInsertPoi.bindLong(2, categoryIds.get("Bauwerke"));
+		stmtInsertPoi.bindString(3, "Grossmünster");
+		stmtInsertPoi.bindString(4, "Das Wahrzeichen Zürichs beherrscht mit der mächtigen Doppelturmfassade den oberen Limmatraum");
+		stmtInsertPoi.bindLong(5, 8544167);
+		stmtInsertPoi.bindLong(6, 47370000);
+		stmtInsertPoi.bindString(7, "http://www.grossmuenster.ch");
 		poiIds.put("Grossmünster", stmtInsertPoi.executeInsert());
+
+		// Zeughauskeller
+		stmtInsertPoi.bindLong(2, categoryIds.get("Restaurants"));
+		stmtInsertPoi.bindString(3, "Zeughauskeller");
+		stmtInsertPoi.bindString(4, "Schweizer Küche im Grossformat: Würste, Rösti u.a. Das Traditionslokal wird von Einheimischen wir von Touristen besucht.");
+		stmtInsertPoi.bindLong(5, 8539818);
+		stmtInsertPoi.bindLong(6, 47370328);
+		stmtInsertPoi.bindString(7, "http://www.zeughauskeller.ch");
+		poiIds.put("Zeughauskeller", stmtInsertPoi.executeInsert());
+
+		// Landesmuseum Zürich
+		stmtInsertPoi.bindLong(2, categoryIds.get("Kultur"));
+		stmtInsertPoi.bindString(3, "Landesmuseum Zürich");
+		stmtInsertPoi.bindString(4, "Gleich neben dem Hauptbahnhofscheint ein trutziges Schloss zu stehen - tatsächlich handelt es sich bei der Gebäudegruppe um das Landesmuseum, die bedeutendste Sammlung zur Schweizer Kultur und Geschichte.");
+		stmtInsertPoi.bindLong(5, 8541004);
+		stmtInsertPoi.bindLong(6, 47379024);
+		stmtInsertPoi.bindString(7, "http://www.landesmuseum.ch");
+		poiIds.put("Landesmuseum Zürich", stmtInsertPoi.executeInsert());
+		
 	}
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		db.execSQL("DROP TABLE IF EXISTS " + IPointOfInterestTbl.TABLE_NAME);
-		db.execSQL("DROP TABLE IF EXISTS " + ICategory.TABLE_NAME);
-		db.execSQL("DROP TABLE IF EXISTS " + ICityTbl.TABLE_NAME);
+		db.execSQL(PointOfInterestTbl.SQL_DROP);
+		db.execSQL(CategoryTbl.SQL_DROP);
+		db.execSQL(CityTbl.SQL_DROP);
 		onCreate(db);
 	}
 
