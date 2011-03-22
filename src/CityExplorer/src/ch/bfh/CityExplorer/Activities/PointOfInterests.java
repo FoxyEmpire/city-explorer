@@ -9,6 +9,7 @@ import java.util.List;
 
 import ch.bfh.CityExplorer.R;
 import ch.bfh.CityExplorer.Data.CityExplorerDatabase;
+import ch.bfh.CityExplorer.Data.CityExplorerStorage;
 import ch.bfh.CityExplorer.Data.IPointOfInterestColumn;
 import ch.bfh.CityExplorer.Data.PointOfInterestTbl;
 import android.app.ListActivity;
@@ -31,6 +32,7 @@ public class PointOfInterests extends ListActivity {
 	
 	private PointOfInteretsListAdapter mAdapter;
 	private SQLiteDatabase db;
+	private CityExplorerStorage mStorage;
 	
 	/** Called when the activity is first created. */
     @Override
@@ -62,11 +64,11 @@ public class PointOfInterests extends ListActivity {
         
         registerForContextMenu(getListView());
        
-        for (ListItem item : items){
-        new LoadItemsTask().execute(item);
+        for (ListItem item : items) {
+        	new LoadItemsTask().execute(item);
         }
 
-       
+        mStorage = new CityExplorerStorage(this);       
     }
     
 	@Override
@@ -82,6 +84,7 @@ public class PointOfInterests extends ListActivity {
 		  switch (item.getItemId()) {
 		  case R.id.miPointOfInterest_ToFavorit:
 			  ListItem listItem = (ListItem)getListView().getItemAtPosition(info.position);
+			  mStorage.InsertFavourite(listItem.getId());
 			  break;
 		  case R.id.miPointOfInterest_Cancel:
 			  return true;
