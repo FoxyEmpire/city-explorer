@@ -1,5 +1,10 @@
 package ch.bfh.CityExplorer.Data;
 
+import android.content.ContentValues;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteStatement;
+import android.util.Log;
+
 public class PointOfInterestTbl implements IPointOfInterestColumn {
 	
 	/**
@@ -43,5 +48,29 @@ public class PointOfInterestTbl implements IPointOfInterestColumn {
 	
 	private PointOfInterestTbl() {
 	}
+	
+	//private static final String TAG = "PointOfInterestTbl";
+
+	//public static long InsertPointOfInterest(CityExplorerDatabase db, long cityId, long categoryId,
+	//		String name, String description, float latitude, float longitude, String url) {
+	//	final ContentValues daten = new ContentValues();
+	//	daten.put(CITY_ID, cityId);
+	//	daten.put(CATEGORY_ID, categoryId);
+	//	daten.put(NAME, name);
+	//	daten.put(DESCRIPTION, description);
+	//	daten.put(LATITUDE, latitude);
+	//	daten.put(LONGITUDE, longitude);
+	//	daten.put(URL, url);
+	//
+	//  final SQLiteDatabase dbCon = db.getWritableDatabase();
+
+	//	try {
+	//		final long id = dbCon.insertOrThrow(TABLE_NAME, null, daten);
+	//		Log.i(TAG, "PointOfInterest mit id=" + id + " erzeugt.");
+	//		return id;
+	//	} finally {
+	//		dbCon.close();
+	//	}
+	//}
 	
 }

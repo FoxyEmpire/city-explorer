@@ -2,6 +2,7 @@ package ch.bfh.CityExplorer.Activities;
 
 import ch.bfh.CityExplorer.R;
 import ch.bfh.CityExplorer.Activities.MapsActivity;
+import ch.bfh.CityExplorer.Domain.PointOfInterest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
