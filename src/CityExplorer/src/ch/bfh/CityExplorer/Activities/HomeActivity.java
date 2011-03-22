@@ -36,7 +36,7 @@ public class HomeActivity extends Activity {
     }
     
     protected void OnClickListOfPointsOfInterests(View view){
-    	Intent intent = new Intent(this,PointOfInterests.class);
+    	Intent intent = new Intent(this,GroupActivity.class);
 		startActivity(intent);
     }
 }

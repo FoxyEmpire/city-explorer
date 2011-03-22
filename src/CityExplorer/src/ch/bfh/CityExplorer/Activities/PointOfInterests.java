@@ -11,21 +11,15 @@ import ch.bfh.CityExplorer.R;
 import ch.bfh.CityExplorer.Data.CityExplorerDatabase;
 import ch.bfh.CityExplorer.Data.IPointOfInterestColumn;
 import ch.bfh.CityExplorer.Data.PointOfInterestTbl;
-import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Color;
-import android.graphics.Typeface;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.*;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.*;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -45,8 +39,10 @@ public class PointOfInterests extends ListActivity {
         
         db = new CityExplorerDatabase(this).getReadableDatabase();
         
+        int categoryId = getIntent().getExtras().getInt("categoryId");
+        
         Cursor cursor = db.query(PointOfInterestTbl.TABLE_NAME,
-        		PointOfInterestTbl.ALL_COLUMNS, null, null,
+        		PointOfInterestTbl.ALL_COLUMNS, PointOfInterestTbl.CATEGORY_ID + " = ?", new String[]{String.valueOf(categoryId)},
         		IPointOfInterestColumn.NAME, null, null);
         cursor.moveToFirst();
         ArrayList<ListItem> items = new ArrayList<ListItem>();
@@ -63,6 +59,8 @@ public class PointOfInterests extends ListActivity {
        
         mAdapter = new PointOfInteretsListAdapter(this, items);
         this.setListAdapter(mAdapter);
+        
+        registerForContextMenu(getListView());
        
         for (ListItem item : items){
         new LoadItemsTask().execute(item);
@@ -70,6 +68,26 @@ public class PointOfInterests extends ListActivity {
 
        
     }
+    
+	@Override
+	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+	  super.onCreateContextMenu(menu, v, menuInfo);
+	  MenuInflater inflater = getMenuInflater();
+	  inflater.inflate(R.menu.menupointofinterest, menu);
+	}
+	
+	@Override
+	public boolean onContextItemSelected(MenuItem item){
+		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+		  switch (item.getItemId()) {
+		  case R.id.miPointOfInterest_ToFavorit:
+			  ListItem listItem = (ListItem)getListView().getItemAtPosition(info.position);
+			  break;
+		  case R.id.miPointOfInterest_Cancel:
+			  return true;
+		  }
+		  return true;
+	}
     
     private class ListItem {
     	private int id;
@@ -171,7 +189,6 @@ public class PointOfInterests extends ListActivity {
     		if (convertView == null) {
     			convertView = mLayoutInflater.inflate(R.layout.listpointofintersts, parent, false);
     		}
-    		
 
     				((TextView) convertView.findViewById(R.id.tvPointOfInterest_Name)).setText(items.get(pPosition).getName());
     				((TextView) convertView.findViewById(R.id.tvPointOfInterests_Distance)).setText(items.get(pPosition).getDistance());
