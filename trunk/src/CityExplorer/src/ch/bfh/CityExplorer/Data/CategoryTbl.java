@@ -23,6 +23,12 @@ public class CategoryTbl implements ICategoryColumn {
 	public static final String STMT_FULL_INSERT = "INSERT INTO " + TABLE_NAME
 		+ " ( name ) VALUES ( ? )";
 	
+	/** Liste aller bekannten Attribute. */
+	public static final String[] ALL_COLUMNS = new String[] {
+		ID,
+		NAME
+	};
+	
 	private CategoryTbl() {
 	}
 	
