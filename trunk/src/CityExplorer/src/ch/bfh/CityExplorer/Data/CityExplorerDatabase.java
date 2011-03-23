@@ -89,7 +89,7 @@ public class CityExplorerDatabase extends SQLiteOpenHelper {
 		stmtInsertPoi.bindLong(1, cityIds.get("Zürich"));
 		stmtInsertPoi.bindLong(2, categoryIds.get("Bauwerke"));
 		stmtInsertPoi.bindString(3, "Grossmünster");
-		stmtInsertPoi.bindString(4, "Das Wahrzeichen Zürichs beherrscht mit der mächtigen Doppelturmfassade den oberen Limmatraum");
+		stmtInsertPoi.bindString(4, "In der Altstadt befindet sich das Wahrzeichen Zürichs: das Grossmünster mit seinen Doppeltürmen. Der Name stammt erst aus dem 14. Jahrhundert. Zuvor wurde die Kirche in Urkunden lediglich als \"Zürcher Kirche\" bezeichnet. Der Innenraum des Grossmünsters ist sehr schlicht gehalten. Er enthält nur eine Kanzel und einen Taufstein. Im Chor sind drei farbige Fenster von Augusto Giacometti zu sehen, welche die Weihnachtsgeschichte erzählen. Weiterhin sehenswert ist die Krypta, der älteste Teil der Kirche, wo stark verblasste Wandmalereien aus dem 14./15. Jahrhundert zu sehen sind.");
 		stmtInsertPoi.bindDouble(5, 47.370000);
 		stmtInsertPoi.bindDouble(6, 8.544167);
 		stmtInsertPoi.bindString(7, "http://www.grossmuenster.ch");
@@ -162,11 +162,29 @@ public class CityExplorerDatabase extends SQLiteOpenHelper {
 		stmtInsertPoi.bindLong(2, categoryIds.get("Einkaufen"));
 		stmtInsertPoi.bindString(3, "Bahnhofstrasse");
 		stmtInsertPoi.bindString(4, "Die 1,4 km lange Bahnhofstrasse ist die schickste Einkaufsstrasse Zürichs und eine der schönsten Europas. Zahlreiche elegante Modegeschäfte, Warenhäuser und Boutiquen sowie Luxushotels säumen die berühmteste Bahnhofstrasse der Welt. Einst befand sich hier die Befestigungslinie der Zürcher Stadtbefestigung. Ab 1864 wurde der Fröschengraben zugeschüttet und durch einen Boulevard ersetzt, der Paradeplatz und Hauptbahnhof verbindet. Sehenswert sind unter anderem der Hauptbahnhof, die Max-Bill-Skulptur und die Banken am Paradeplatz.");
-		// TODO!!
-		stmtInsertPoi.bindNull(5);
-		stmtInsertPoi.bindNull(6);
+		stmtInsertPoi.bindDouble(5, 47.376271);
+		stmtInsertPoi.bindDouble(6, 8.539534);
 		stmtInsertPoi.bindString(7, "http://www.bahnhofstrasse-zuerich.ch");
 		poiIds.put("Bahnhofstrasse", stmtInsertPoi.executeInsert());
+		
+		//Paradeplatz
+		stmtInsertPoi.bindLong(2, categoryIds.get("Einkaufen"));
+		stmtInsertPoi.bindString(3, "Paradeplatz");
+		stmtInsertPoi.bindString(4, "Das Herzstück der Bahnhofstrasse ist der Paradeplatz. Es ist eine der teuersten Lagen der Stadt. Der Paradeplatz steht für Banken und Wohlstand. Credit Suisse und UBS, die beiden Schweizer Grossbanken, haben ihren Sitz in der Edelgegend. Einst war der Platz als Schweinemarkt bekannt. Später wurde er Neumarkt genannt, bis er 1865 in Paradeplatz umbenannt wurde. 1838 wurde hier das erste Fremdenhotel der Stadt, das heutige Savoy Baur en Ville, eröffnet.");
+		stmtInsertPoi.bindDouble(5, 47.369688);
+		stmtInsertPoi.bindDouble(6, 8.538885);
+		stmtInsertPoi.bindString(7, "http://www.paradeplatz.ch");
+		poiIds.put("Paradeplatz", stmtInsertPoi.executeInsert());
+		
+		//Zoo Zürich
+		stmtInsertPoi.bindLong(2, categoryIds.get("Kultur"));
+		stmtInsertPoi.bindString(3, "Zoo Zürich");
+		stmtInsertPoi.bindString(4, "Auf dem Zürichberg liegt der Zoologische Garten mit einer Regenwaldhalle, die in Europa einmalig ist. Eröffnet wurde er im Jahre 1929. Bekannt ist der Zoo unter anderem für die artgerechte Haltung der Tiere. Auf 15 Hektar leben rund 2000 Tiere und 280 verschiedene Arten aus sechs Kontinenten. Zu den Hauptattraktionen des Zoos zählen unter anderem der südamerikanische Bergnebelwald, in dem Brillen- und Nasenbären zu Hause sind, oder die Himalaya-Anlage, in der Sibirische Tiger, Mongolische Wölfe, Schneeleoparden und Kleine Pandas leben. Selbstverständlich zählt auch die Masoala Regenwald-Halle zu einer der Hauptattraktion. Der madagassische Masoala-Regenwald wird auf gut einem Hektar abgebildet und bietet Lemuren, Makis, Chamäleons, Flughunden, Aldabra-Riesenschildkröten, Geckos, Fröschen, Echsen und Insekten Unterschlupf. 2006 wurde eine Löwenanlage für Asiatische Löwen eröffnet. Afrikahaus, Menschenaffenhaus und Schildkrötenhaus sind nur ein paar der weiteren Attraktionen. Abgerundet wird das Angebot durch Zoolino, wo die kleinen Besucher auf dem Gelände eines alten Bauernhofes Kontakt zu Schweinen, Gänsen, Hühnern, Ziegen oder Meerschweinchen aufnehmen können, und die Naturwerkstatt, in der Stadtkinder die Tiere im Siedlungsraum näher gebracht werden. Bis 2020 sollen weitere Projekte wie die asiatische Wüste, die Savanne und ein südamerikanischer und afrikanischer Regenwald realisiert werden. Im ganzen Park stehen Besuchern Bänke und Picknick-Tische zur Verfügung. Auch für die Kinder gibt es eine grosse Anzahl von Spielmöglichkeiten.");
+		stmtInsertPoi.bindDouble(5, 47.384462);
+		stmtInsertPoi.bindDouble(6, 8.574792);
+		stmtInsertPoi.bindString(7, "http://www.zoo.ch");
+		poiIds.put("Zoo Zürich", stmtInsertPoi.executeInsert());
+		
 
 		return poiIds;
 	}
