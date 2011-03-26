@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.Drawable;
@@ -50,13 +51,13 @@ public class MapsActivity extends MapActivity {
         ////itemizedOverlay.addOverlay(overlayitem2);
         //mapOverlays.add(itemizedOverlay);
         
-        
+        int id;
         String name;
         String desc;
         double lat;
         double lng;
         GeoPoint point;
-        OverlayItem overlayitem;
+        PoiOverlayItem overlayitem;
         Drawable drawable = this.getResources().getDrawable(R.drawable.androidmarker);
         MapsItemizedOverlay itemizedOverlay = new MapsItemizedOverlay(drawable, this);
         List<Overlay> mapOverlays = mapView.getOverlays();
@@ -69,12 +70,13 @@ public class MapsActivity extends MapActivity {
         cursor.moveToFirst();
         
         while (cursor.isAfterLast() == false) {
+        	id = cursor.getInt(cursor.getColumnIndex(IPointOfInterestColumn.ID));
         	name = cursor.getString(cursor.getColumnIndex(IPointOfInterestColumn.NAME));
         	desc = cursor.getString(cursor.getColumnIndex(IPointOfInterestColumn.DESCRIPTION));
         	lat = cursor.getDouble(cursor.getColumnIndex(IPointOfInterestColumn.LATITUDE));
         	lng = cursor.getDouble(cursor.getColumnIndex(IPointOfInterestColumn.LONGITUDE));
         	point = new GeoPoint((int) (lat * 1E6), (int) (lng * 1E6));
-        	overlayitem = new OverlayItem(point, name, desc);
+        	overlayitem = new PoiOverlayItem(point, name, desc, id);
         	itemizedOverlay.addOverlay(overlayitem);
         	mapOverlays.add(itemizedOverlay);
 
@@ -88,9 +90,20 @@ public class MapsActivity extends MapActivity {
 		return false;
 	}
 	
+	private class PoiOverlayItem extends OverlayItem {
+
+		private int mId;
+		
+		public PoiOverlayItem(GeoPoint point, String title, String snippet, int id) {
+			super(point, title, snippet);
+			mId = id;
+		}
+		
+	}
+	
 	private class MapsItemizedOverlay extends ItemizedOverlay {
 		
-		private ArrayList<OverlayItem> mOverlays = new ArrayList<OverlayItem>();
+		private ArrayList<PoiOverlayItem> mOverlays = new ArrayList<PoiOverlayItem>();
 		private Context mContext;
 		
 		public MapsItemizedOverlay(Drawable defaultMarker) {
@@ -102,7 +115,7 @@ public class MapsActivity extends MapActivity {
 			mContext = context;
 		}
 		
-		public void addOverlay(OverlayItem overlay) {
+		public void addOverlay(PoiOverlayItem overlay) {
 			mOverlays.add(overlay);
 			populate();
 		}
@@ -119,11 +132,17 @@ public class MapsActivity extends MapActivity {
 		
 		@Override
 		protected boolean onTap(int index) {
-			OverlayItem item = mOverlays.get(index);
-			AlertDialog.Builder dialog = new AlertDialog.Builder(mContext);
-			dialog.setTitle(item.getTitle());
-			dialog.setMessage(item.getSnippet());
-			dialog.show();
+			PoiOverlayItem item = mOverlays.get(index);
+			
+			//AlertDialog.Builder dialog = new AlertDialog.Builder(mContext);
+			//dialog.setTitle(item.getTitle());
+			//dialog.setMessage(item.getSnippet());
+			//dialog.show();
+			
+			Intent intent = new Intent(mContext, PoiDetailActivity.class);
+	    	intent.putExtra("poiId", item.mId);
+			startActivity(intent);
+			
 			return true;
 		}
 		
