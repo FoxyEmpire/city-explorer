@@ -143,8 +143,8 @@ public class CityExplorerDatabase extends SQLiteOpenHelper {
 		stmtInsertPoi.bindDouble(6, 8.538885);
 		stmtInsertPoi.bindString(7, "http://www.paradeplatz.ch");
 		stmtInsertPoi.bindNull(8);
-		stmtInsertPoi.bindString(9, "");
-		stmtInsertPoi.bindString(10, "");
+		stmtInsertPoi.bindString(9, "http://www.scheuble.ch/images/zuerich-sehenswert/zuerich-paradeplatz.jpg");
+		stmtInsertPoi.bindString(10, "http://www.nzz.ch/images/paradeplatz_fullSize_1.2613447.1243149950.jpg");
 		poiIds.put("Paradeplatz", stmtInsertPoi.executeInsert());
 		
 		//Hauptbahnhof
