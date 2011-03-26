@@ -87,6 +87,87 @@ public class CityExplorerDatabase extends SQLiteOpenHelper {
 		stmtInsertPoi.bindLong(1, cityIds.get("Zürich"));
 
 		
+		
+		// Kino abaton
+		stmtInsertPoi.bindLong(2, categoryIds.get("Kinos"));
+		stmtInsertPoi.bindString(3, "Kino abaton");
+		stmtInsertPoi.bindString(4, "12 Säle mit insgesamt 2284 Sitzplätzen.");
+		stmtInsertPoi.bindDouble(5, 47.389247);
+		stmtInsertPoi.bindDouble(6, 8.521519);
+		stmtInsertPoi.bindString(7, "http://www.kitag.com");
+		stmtInsertPoi.bindNull(8);
+		stmtInsertPoi.bindString(9, "http://www.movies.ch/db_data/theaters/abatonzuerich/exterior_l.jpg");
+		stmtInsertPoi.bindString(10, "http://www.movies.ch/db_data/screens/abatonzuerich11/view1_l.jpg");
+		stmtInsertPoi.bindString(11, "Kino abaton\nHeinrichstrasse 269\n8005 Zürich");
+		poiIds.put("Kino abaton", stmtInsertPoi.executeInsert());
+		
+		// Kino abc
+		stmtInsertPoi.bindLong(2, categoryIds.get("Kinos"));
+		stmtInsertPoi.bindString(3, "Kino abc");
+		stmtInsertPoi.bindString(4, "4 Säle mit insgesamt 830 Sitzplätzen.");
+		stmtInsertPoi.bindDouble(5, 47.376236);
+		stmtInsertPoi.bindDouble(6, 8.540986);
+		stmtInsertPoi.bindString(7, "http://www.kitag.com");
+		stmtInsertPoi.bindNull(8);
+		stmtInsertPoi.bindString(9, "http://www.movies.ch/db_data/theaters/abczuerich/exterior_l.jpg");
+		stmtInsertPoi.bindString(10, "http://www.movies.ch/db_data/screens/abczuerich1/view1_l.jpg");
+		stmtInsertPoi.bindString(11, "Kino abc\nWaisenhausstr. 2-4\n8000 Zürich");
+		poiIds.put("Kino abc", stmtInsertPoi.executeInsert());
+		
+		// Kino Arena
+		stmtInsertPoi.bindLong(2, categoryIds.get("Kinos"));
+		stmtInsertPoi.bindString(3, "Kino Arena Filmcity");
+		stmtInsertPoi.bindString(4, "9 Säle mit insgesamt 2051 Sitzplätzen.");
+		stmtInsertPoi.bindDouble(5, 47.358413);
+		stmtInsertPoi.bindDouble(6, 8.522562);
+		stmtInsertPoi.bindString(7, "http://www.kitag.com");
+		stmtInsertPoi.bindNull(8);
+		stmtInsertPoi.bindString(9, "http://www.movies.ch/db_data/screens/arenazuerich08/view1_l.jpg");
+		stmtInsertPoi.bindString(10, "http://www.movies.ch/db_data/screens/arenazuerich04/view2_l.jpg");
+		stmtInsertPoi.bindString(11, "Kino Arena\nKalanderplatz 8\n8045 Zürich");
+		poiIds.put("Kino Arena", stmtInsertPoi.executeInsert());
+		
+		// Kino capitol
+		stmtInsertPoi.bindLong(2, categoryIds.get("Kinos"));
+		stmtInsertPoi.bindString(3, "Kino capitol");
+		stmtInsertPoi.bindString(4, "6 Säle mit insgesamt 857 Sitzplätzen.");
+		stmtInsertPoi.bindDouble(5, 47.377870);
+		stmtInsertPoi.bindDouble(6, 8.544105);
+		stmtInsertPoi.bindString(7, "http://www.kitag.com");
+		stmtInsertPoi.bindNull(8);
+		stmtInsertPoi.bindString(9, "http://www.movies.ch/db_data/screens/capitolzuerich1/view3_l.jpg");
+		stmtInsertPoi.bindString(10, "http://www.movies.ch/db_data/screens/capitolzuerich1/view4_l.jpg");
+		stmtInsertPoi.bindString(11, "Kino capitol\nWeinbergstrasse 9\n8001 Zürich");
+		poiIds.put("Kino capitol", stmtInsertPoi.executeInsert());
+		
+		// Kino corso
+		stmtInsertPoi.bindLong(2, categoryIds.get("Kinos"));
+		stmtInsertPoi.bindString(3, "Kino corso");
+		stmtInsertPoi.bindString(4, "4 Säle mit insgesamt 1368 Sitzplätzen.");
+		stmtInsertPoi.bindDouble(5, 47.366376);
+		stmtInsertPoi.bindDouble(6, 8.546727);
+		stmtInsertPoi.bindString(7, "http://www.kitag.com");
+		stmtInsertPoi.bindNull(8);
+		stmtInsertPoi.bindString(9, "http://www.movies.ch/db_data/screens/corsozuerich1/view1_l.jpg");
+		stmtInsertPoi.bindString(10, "http://www.movies.ch/db_data/screens/corsozuerich4/view1_l.jpg");
+		stmtInsertPoi.bindString(11, "Kino corso\nTheaterstr. 10\n8001 Zürich");
+		poiIds.put("Kino corso", stmtInsertPoi.executeInsert());
+		
+		// Kino metropol
+		stmtInsertPoi.bindLong(2, categoryIds.get("Kinos"));
+		stmtInsertPoi.bindString(3, "Kino metropol");
+		stmtInsertPoi.bindString(4, "2 Säle mit insgesamt 500 Sitzplätzen.");
+		stmtInsertPoi.bindDouble(5, 47.373661);
+		stmtInsertPoi.bindDouble(6, 8.530799);
+		stmtInsertPoi.bindString(7, "http://www.kitag.com");
+		stmtInsertPoi.bindNull(8);
+		stmtInsertPoi.bindString(9, "http://www.movies.ch/db_data/screens/metropolzuerich1/view1_l.jpg");
+		stmtInsertPoi.bindString(10, "http://www.movies.ch/db_data/screens/metropolzuerich2/view1_l.jpg");
+		stmtInsertPoi.bindString(11, "Kino metropol\nBadenerstr. 16\n8004 Zürich");
+		poiIds.put("Kino metropol", stmtInsertPoi.executeInsert());
+		
+		//--------------------
+		
 		// Zeughauskeller
 		stmtInsertPoi.bindLong(2, categoryIds.get("Restaurants"));
 		stmtInsertPoi.bindString(3, "Zeughauskeller");
@@ -97,8 +178,11 @@ public class CityExplorerDatabase extends SQLiteOpenHelper {
 		stmtInsertPoi.bindString(8, "Täglich 11:30 – 23:00 Uhr");
 		stmtInsertPoi.bindString(9, "http://www.sengers.ch/izueri/restaurant8/zeughauskeller/DSC_6569.jpg");
 		stmtInsertPoi.bindString(10, "http://www.sengers.ch/izueri/restaurant8/zeughauskeller/DSC_6577.jpg");
+		stmtInsertPoi.bindNull(11);
 		poiIds.put("Zeughauskeller", stmtInsertPoi.executeInsert());
-
+		
+		//--------------------
+		
 		// Landesmuseum Zürich
 		stmtInsertPoi.bindLong(2, categoryIds.get("Kultur"));
 		stmtInsertPoi.bindString(3, "Landesmuseum Zürich");
@@ -109,9 +193,10 @@ public class CityExplorerDatabase extends SQLiteOpenHelper {
 		stmtInsertPoi.bindString(8, "Di - So 10:00 - 17:00 Uhr\nDo 10:00 - 19:00 Uhr");
 		stmtInsertPoi.bindString(9, "");
 		stmtInsertPoi.bindString(10, "");
+		stmtInsertPoi.bindNull(11);
 		poiIds.put("Landesmuseum Zürich", stmtInsertPoi.executeInsert());
 		
-		//Kunsthaus
+		// Kunsthaus
 		stmtInsertPoi.bindLong(2, categoryIds.get("Kultur"));
 		stmtInsertPoi.bindString(3, "Kunsthaus");
 		stmtInsertPoi.bindString(4, "Für Kulturfreunde ist allein der Besuch des Kunsthaues eine Reise nach Zürich wert. Die Wechselausstellungen sind ausgezeichnet, und das Haus verfügt über eine der bedeutendsten Gemälde- und Skulpturensammlungen Europas, darunter die umfangreichste Giacometti-Sammlung weltweit sowie die grösste Munch-Sammlung ausserhalb Norwegens.");
@@ -121,9 +206,12 @@ public class CityExplorerDatabase extends SQLiteOpenHelper {
 		stmtInsertPoi.bindString(8, "");
 		stmtInsertPoi.bindString(9, "");
 		stmtInsertPoi.bindString(10, "");
+		stmtInsertPoi.bindNull(11);
 		poiIds.put("Kunsthaus", stmtInsertPoi.executeInsert());
 		
-		//Bahnhofstrasse
+		//--------------------
+		
+		// Bahnhofstrasse
 		stmtInsertPoi.bindLong(2, categoryIds.get("Einkaufen"));
 		stmtInsertPoi.bindString(3, "Bahnhofstrasse");
 		stmtInsertPoi.bindString(4, "Die 1,4 km lange Bahnhofstrasse ist die schickste Einkaufsstrasse Zürichs und eine der schönsten Europas. Zahlreiche elegante Modegeschäfte, Warenhäuser und Boutiquen sowie Luxushotels säumen die berühmteste Bahnhofstrasse der Welt. Einst befand sich hier die Befestigungslinie der Zürcher Stadtbefestigung. Ab 1864 wurde der Fröschengraben zugeschüttet und durch einen Boulevard ersetzt, der Paradeplatz und Hauptbahnhof verbindet. Sehenswert sind unter anderem der Hauptbahnhof, die Max-Bill-Skulptur und die Banken am Paradeplatz.");
@@ -133,9 +221,10 @@ public class CityExplorerDatabase extends SQLiteOpenHelper {
 		stmtInsertPoi.bindNull(8);
 		stmtInsertPoi.bindString(9, "");
 		stmtInsertPoi.bindString(10, "");
+		stmtInsertPoi.bindNull(11);
 		poiIds.put("Bahnhofstrasse", stmtInsertPoi.executeInsert());
 		
-		//Paradeplatz
+		// Paradeplatz
 		stmtInsertPoi.bindLong(2, categoryIds.get("Einkaufen"));
 		stmtInsertPoi.bindString(3, "Paradeplatz");
 		stmtInsertPoi.bindString(4, "Das Herzstück der Bahnhofstrasse ist der Paradeplatz. Es ist eine der teuersten Lagen der Stadt. Der Paradeplatz steht für Banken und Wohlstand. Credit Suisse und UBS, die beiden Schweizer Grossbanken, haben ihren Sitz in der Edelgegend. Einst war der Platz als Schweinemarkt bekannt. Später wurde er Neumarkt genannt, bis er 1865 in Paradeplatz umbenannt wurde. 1838 wurde hier das erste Fremdenhotel der Stadt, das heutige Savoy Baur en Ville, eröffnet.");
@@ -145,9 +234,12 @@ public class CityExplorerDatabase extends SQLiteOpenHelper {
 		stmtInsertPoi.bindNull(8);
 		stmtInsertPoi.bindString(9, "http://www.scheuble.ch/images/zuerich-sehenswert/zuerich-paradeplatz.jpg");
 		stmtInsertPoi.bindString(10, "http://www.nzz.ch/images/paradeplatz_fullSize_1.2613447.1243149950.jpg");
+		stmtInsertPoi.bindNull(11);
 		poiIds.put("Paradeplatz", stmtInsertPoi.executeInsert());
 		
-		//Hauptbahnhof
+		//--------------------
+		
+		// Hauptbahnhof
 		stmtInsertPoi.bindLong(2, categoryIds.get("Sehenswürdigkeiten"));
 		stmtInsertPoi.bindString(3, "Hauptbahnhof");
 		stmtInsertPoi.bindString(4, "Wichtigstes Einfallstor für Reisende ist der Hauptbahnhof. Im prunkvollen Neorenaissance-Bau aus Sandstein befindet sich der heutige Bahnhof von Zürich. Sein Haupteingang, ein Triumphbogen am Ende der Bahnhofstrasse, wirkt wie ein Tor zu einer damals neu erschlossenen Welt. Erbaut wurde der Bahnhof 1871. Unterirdisch werden heute zwei S-Bahnhöfe mit der Haupthalle verbunden. Hier befinden sich Ladenpassagen.");
@@ -157,9 +249,10 @@ public class CityExplorerDatabase extends SQLiteOpenHelper {
 		stmtInsertPoi.bindString(8, "");
 		stmtInsertPoi.bindString(9, "");
 		stmtInsertPoi.bindString(10, "");
+		stmtInsertPoi.bindNull(11);
 		poiIds.put("Hauptbahnhof", stmtInsertPoi.executeInsert());
 		
-		//ETH Zürich
+		// ETH Zürich
 		stmtInsertPoi.bindLong(2, categoryIds.get("Sehenswürdigkeiten"));
 		stmtInsertPoi.bindString(3, "ETH Zürich");
 		stmtInsertPoi.bindString(4, "Die kurz ETH genannte Eidgenössische Technische Hochschule zählt zu den renomiertesten Hochschulen der Welt mit naturwissenschaftlich-technischem Schwerpunkt. Hier forschten, lehrten und lernten kluge Köpfe wie Albert Einstein und Wolfgang Pauli.");
@@ -169,9 +262,10 @@ public class CityExplorerDatabase extends SQLiteOpenHelper {
 		stmtInsertPoi.bindString(8, "");
 		stmtInsertPoi.bindString(9, "");
 		stmtInsertPoi.bindString(10, "");
+		stmtInsertPoi.bindNull(11);
 		poiIds.put("ETH Zürich", stmtInsertPoi.executeInsert());
 		
-		//Fraumünster
+		// Fraumünster
 		stmtInsertPoi.bindLong(2, categoryIds.get("Sehenswürdigkeiten"));
 		stmtInsertPoi.bindString(3, "Fraumünster");
 		stmtInsertPoi.bindString(4, "Die Kirche mit Frauenkloster wurde 853 von König Ludwig dem Deutschen gestifet und von Frauen des europäischen Hochadels bewohnt. Das Kloster genoss die Gunst von Königen und die Äbtissin hatte das Münzrecht von Zürich bis ins 13. Jh. Nach der Reformation kamen Kirche und Kloster in den Besitz der Stadt.\nBedeutende Bauteile sind der romanische Chor und das hochgewölbte Querschiff. Das Langhaus wurde 1911 letztmals umgebaut, nachdem schon im 18.Jh. der Nordturm erhöht und der Südturm abgetragen worden war.\nBedeutendster Schmuck neben der grössten Orgel im Kanton Zürich mit 5793 Pfeifen sind seine Farbfenster: die Nordfenster im Querschiff (1945) sind gefertigt von Augusto Giacometti, Alberto Giacomettis Onkel. Der fünfteilige Fensterzyklus im Chor (1970) und die Rosette im südlichen Querschiff (1978) sind Werke Marc Chagalls. Im Kreuzgang befindet sich ein Freskenzyklus von Paul Bodmer zur Gründung des Fraumünsters. Zu den Hauptattraktionen des Münsters zählen heute die Glasfenster von Chagall und Giacometti.");
@@ -179,8 +273,9 @@ public class CityExplorerDatabase extends SQLiteOpenHelper {
 		stmtInsertPoi.bindDouble(6, 8.543691);
 		stmtInsertPoi.bindString(7, "http://www.fraumuenster.ch");
 		stmtInsertPoi.bindString(8, "November - März 10:00 - 16:00 Uhr\nApril - Oktober 10:00 - 18:00 Uhr");
-		stmtInsertPoi.bindString(9, "");
-		stmtInsertPoi.bindString(10, "");
+		stmtInsertPoi.bindString(9, "http://farm3.static.flickr.com/2125/2462003873_9a07336f4b.jpg");
+		stmtInsertPoi.bindString(10, "http://mw2.google.com/mw-panoramio/photos/medium/9725570.jpg");
+		stmtInsertPoi.bindNull(11);
 		poiIds.put("Fraumünster", stmtInsertPoi.executeInsert());
 		
 		// Grossmünster
@@ -193,6 +288,7 @@ public class CityExplorerDatabase extends SQLiteOpenHelper {
 		stmtInsertPoi.bindString(8, "März – Oktober 10:00 - 18:00 Uhr\nNovember – Februar 10:00 - 17:00 Uhr");
 		stmtInsertPoi.bindString(9, "http://www.grossmuenster.ch/typo3temp/pics/c512687fc9.jpg");
 		stmtInsertPoi.bindString(10, "http://www.grossmuenster.ch/fileadmin/templates/images/tour/08_kln.jpg");
+		stmtInsertPoi.bindNull(11);
 		poiIds.put("Grossmünster", stmtInsertPoi.executeInsert());
 
 		// Lindenhof
@@ -203,8 +299,9 @@ public class CityExplorerDatabase extends SQLiteOpenHelper {
 		stmtInsertPoi.bindDouble(6, 8.541307);
 		stmtInsertPoi.bindNull(7);
 		stmtInsertPoi.bindNull(8);
-		stmtInsertPoi.bindString(9, "http://www.sengers.ch/izueri/lindenhof/lindenhof-limmatquai.jpg");
-		stmtInsertPoi.bindString(10, "http://images.gadmin.st.s3.amazonaws.com/n20505/images/zuerich/detail_breit/detailboard_lindenhof_7436-1.jpg");
+		stmtInsertPoi.bindString(9, "http://images.gadmin.st.s3.amazonaws.com/n20505/images/zuerich/detail_breit/detailboard_lindenhof_7436-1.jpg");
+		stmtInsertPoi.bindString(10, "http://www.sengers.ch/izueri/lindenhof/lindenhof-limmatquai.jpg");
+		stmtInsertPoi.bindNull(11);
 		poiIds.put("Lindenhof", stmtInsertPoi.executeInsert());
 		
 		// Niederdorf
@@ -217,9 +314,10 @@ public class CityExplorerDatabase extends SQLiteOpenHelper {
 		stmtInsertPoi.bindNull(8);
 		stmtInsertPoi.bindString(9, "http://images.gadmin.st.s3.amazonaws.com/n20505/images/zuerich/detail_breit/detailboard_niederdorf_7573-1.jpg");
 		stmtInsertPoi.bindString(10, "");
+		stmtInsertPoi.bindNull(11);
 		poiIds.put("Niederdorf", stmtInsertPoi.executeInsert());
 		
-		//St. Peter
+		// St. Peter
 		stmtInsertPoi.bindLong(2, categoryIds.get("Sehenswürdigkeiten"));
 		stmtInsertPoi.bindString(3, "St. Peter");
 		stmtInsertPoi.bindString(4, "Die Kirche St. Peter ist mit dem grössten Zifferblatt Europas bestückt: Der Durchmesser beträgt 8,7 Meter. Im Turm befinden sich fünf Glocken von 1880 - die grösste wiegt ohne Klöppel über 6000 kg.\nVom Mittelalter an bis 1911 diente der Kirchturm der Brandwache.\n\nDie Kirche St. Peter ist die älteste Pfarrkirche Zürichs und reicht in ihren Anfängen in die Zeit vor 900.\nDer erste Bürgermeister Rudolf Brun, 1360 im Chor der Kirche begraben, erwirbt 1345 die Kirche mit allen Pflichten und Rechten (Kirchensatz). Heute befindet sich sein Grab und Denkmal an der Aussenmauer des Turms. Der erste reformierter Pfarrer war Leo Jud (1523-1542), ein Freund Zwinglis und Mitarbeiter an der ersten Zürcher Bibelübersetzung. 1778-1801 wirkte der Pfarrer J.C. Lavater (Schriftsteller, Physiognomiker; Freund des jungen Goethe) in dieser Kirche. Sein Grabstein befindet sich an der Kirchenmauer, ein Denkmal im Chor der Kirche.\n\nBauelemente\nTurm: unterer Teil spätromanisch, oben gotisch\nChor: von etwa 1230\nFreskenfragmente 1300 bis 1500\nSchiff: barock");
@@ -229,9 +327,10 @@ public class CityExplorerDatabase extends SQLiteOpenHelper {
 		stmtInsertPoi.bindString(8, "Montag bis Freitag: 8.00 bis 18.00 Uhr\nSamstag: 10.00 bis 16.00 Uhr\nSonntag: Nach dem Gottesdienst um ca.11.00 Uhr bis 17.00 Uhr");
 		stmtInsertPoi.bindString(9, "http://images.gadmin.st.s3.amazonaws.com/n20505/images/zuerich/detail_breit/detailboard_stpeterkirche_8086-1.jpg");
 		stmtInsertPoi.bindString(10, "");
+		stmtInsertPoi.bindNull(11);
 		poiIds.put("St. Peter", stmtInsertPoi.executeInsert());
 		
-		//Zoo Zürich
+		// Zoo Zürich
 		stmtInsertPoi.bindLong(2, categoryIds.get("Sehenswürdigkeiten"));
 		stmtInsertPoi.bindString(3, "Zoo Zürich");
 		stmtInsertPoi.bindString(4, "Auf dem Zürichberg liegt der Zoologische Garten mit einer Regenwaldhalle, die in Europa einmalig ist. Eröffnet wurde er im Jahre 1929. Bekannt ist der Zoo unter anderem für die artgerechte Haltung der Tiere. Auf 15 Hektar leben rund 2000 Tiere und 280 verschiedene Arten aus sechs Kontinenten. Zu den Hauptattraktionen des Zoos zählen unter anderem der südamerikanische Bergnebelwald, in dem Brillen- und Nasenbären zu Hause sind, oder die Himalaya-Anlage, in der Sibirische Tiger, Mongolische Wölfe, Schneeleoparden und Kleine Pandas leben. Selbstverständlich zählt auch die Masoala Regenwald-Halle zu einer der Hauptattraktion. Der madagassische Masoala-Regenwald wird auf gut einem Hektar abgebildet und bietet Lemuren, Makis, Chamäleons, Flughunden, Aldabra-Riesenschildkröten, Geckos, Fröschen, Echsen und Insekten Unterschlupf. 2006 wurde eine Löwenanlage für Asiatische Löwen eröffnet. Afrikahaus, Menschenaffenhaus und Schildkrötenhaus sind nur ein paar der weiteren Attraktionen. Abgerundet wird das Angebot durch Zoolino, wo die kleinen Besucher auf dem Gelände eines alten Bauernhofes Kontakt zu Schweinen, Gänsen, Hühnern, Ziegen oder Meerschweinchen aufnehmen können, und die Naturwerkstatt, in der Stadtkinder die Tiere im Siedlungsraum näher gebracht werden. Bis 2020 sollen weitere Projekte wie die asiatische Wüste, die Savanne und ein südamerikanischer und afrikanischer Regenwald realisiert werden. Im ganzen Park stehen Besuchern Bänke und Picknick-Tische zur Verfügung. Auch für die Kinder gibt es eine grosse Anzahl von Spielmöglichkeiten.");
@@ -241,6 +340,7 @@ public class CityExplorerDatabase extends SQLiteOpenHelper {
 		stmtInsertPoi.bindString(8, "März – Oktober 09.00 – 18.00 Uhr\nNovember – Februar 09.00 – 17.00 Uhr");
 		stmtInsertPoi.bindString(9, "");
 		stmtInsertPoi.bindString(10, "");
+		stmtInsertPoi.bindNull(11);
 		poiIds.put("Zoo Zürich", stmtInsertPoi.executeInsert());
 		
 		return poiIds;
