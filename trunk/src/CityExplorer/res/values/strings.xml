@@ -2,4 +2,6 @@
 <resources>
     <string name="hello">Hello World, StartActivity!</string>
     <string name="app_name">CityExplorer</string>
+    <string name="description">Beschreibung</string>
+    <string name="opening_hours">Öffnungszeiten</string>
 </resources>

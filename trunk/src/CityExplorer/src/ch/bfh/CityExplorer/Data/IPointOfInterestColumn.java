@@ -10,5 +10,8 @@ public interface IPointOfInterestColumn {
 	String LATITUDE = "lat";
 	String LONGITUDE = "long";
 	String URL = "url";
+	String OPENING_HOURS = "opening_hours";
+	String IMAGE_URL_1 = "image_url_1";
+	String IMAGE_URL_2 = "image_url_2";
 	
 }

@@ -1,10 +1,5 @@
 package ch.bfh.CityExplorer.Data;
 
-import android.content.ContentValues;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteStatement;
-import android.util.Log;
-
 public class PointOfInterestTbl implements IPointOfInterestColumn {
 	
 	/**
@@ -23,7 +18,10 @@ public class PointOfInterestTbl implements IPointOfInterestColumn {
 		+ "desc VARCHAR(1000),"
 		+ "lat FLOAT,"
 		+ "long FLOAT,"
-		+ "url VARCHAR(255)"
+		+ "url VARCHAR(255),"
+		+ "opening_hours VARCHAR(255),"
+		+ "image_url_1 VARCHAR(255),"
+		+ "image_url_2 VARCHAR(255)"
 		+ ");";
 	
 	/**
@@ -32,7 +30,8 @@ public class PointOfInterestTbl implements IPointOfInterestColumn {
 	public static final String SQL_DROP = "DROP TABLE IF EXISTS " + TABLE_NAME;
 	
 	public static final String STMT_FULL_INSERT = "INSERT INTO " + TABLE_NAME
-		+ " ( city_id, category_id, name, desc, lat, long, url ) VALUES ( ?, ?, ?, ?, ?, ?, ? )";
+		+ " ( city_id, category_id, name, desc, lat, long, url, opening_hours, image_url_1, image_url_2 ) "
+		+ " VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
 		
 	/** Liste aller bekannten Attribute. */
 	public static final String[] ALL_COLUMNS = new String[] {
@@ -43,7 +42,10 @@ public class PointOfInterestTbl implements IPointOfInterestColumn {
 		DESCRIPTION,
 		LATITUDE,
 		LONGITUDE,
-		URL
+		URL,
+		OPENING_HOURS,
+		IMAGE_URL_1,
+		IMAGE_URL_2
 	};
 	
 	private PointOfInterestTbl() {

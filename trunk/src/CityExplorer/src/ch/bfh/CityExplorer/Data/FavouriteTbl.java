@@ -1,10 +1,6 @@
 package ch.bfh.CityExplorer.Data;
 
-import android.content.ContentValues;
-import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
-
-public class FavouriteTbl implements IFavourite {
+public class FavouriteTbl implements IFavouriteColumn {
 
 	/**
 	  * Name der Datenbanktabelle.
