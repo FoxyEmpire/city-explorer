@@ -14,6 +14,7 @@ import ch.bfh.CityExplorer.Data.IPointOfInterestColumn;
 import ch.bfh.CityExplorer.Data.PointOfInterestTbl;
 import android.app.ListActivity;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
@@ -27,6 +28,8 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.*;
+
+import com.google.android.maps.MapView;
 
 public class PointOfInterests extends ListActivity {
 	
@@ -81,13 +84,21 @@ public class PointOfInterests extends ListActivity {
 	@Override
 	public boolean onContextItemSelected(MenuItem item){
 		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+		ListItem listItem = (ListItem)getListView().getItemAtPosition(info.position);
 		  switch (item.getItemId()) {
 		  case R.id.miPointOfInterest_ToFavorit:
-			  ListItem listItem = (ListItem)getListView().getItemAtPosition(info.position);
 			  mStorage.InsertFavourite(listItem.getId());
 			  break;
+		  case R.id.miPointOfInterest_NavigateTo:
+			  Intent intent = new Intent(this, MapsActivity.class);
+		    	intent.putExtra("pointOfInterestId", listItem.getId());
+				startActivity(intent);
 		  case R.id.miPointOfInterest_Cancel:
 			  return true;
+		  case R.id.miPointOfInterest_AddToCalendar:
+			  Intent intentCalendar = new Intent(this, CalendarActivity.class);
+			  intentCalendar.putExtra("pointOfInterestId", listItem.getId());
+				startActivity(intentCalendar);
 		  }
 		  return true;
 	}
