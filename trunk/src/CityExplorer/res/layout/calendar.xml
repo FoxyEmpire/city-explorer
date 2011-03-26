@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" android:scrollbarStyle="outsideOverlay">
+<TableLayout
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent">
+    <TextView android:id="@+id/tvCalendar_Topic" android:text="Was" android:layout_height="wrap_content" android:layout_width="wrap_content"></TextView>
+    <EditText android:id="@+id/etCalendar_Topic" android:layout_width="wrap_content" android:text="" android:textSize="8pt" android:layout_height="16pt" android:editable="false"></EditText>
+    <TextView android:text="Von" android:id="@+id/tvCalendar_From" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+    <TableRow android:id="@+id/tableRow1" android:layout_width="wrap_content" android:layout_height="wrap_content">
+	    <Button android:text="Button" android:id="@+id/btnCalendar_From" android:layout_height="16pt" android:layout_width="fill_parent" android:layout_weight="60"></Button>
+	    <Button android:text="Button" android:id="@+id/btnCalendar_TimeFrom" android:layout_width="wrap_content" android:layout_height="16pt"></Button>
+    </TableRow>
+    <TextView android:text="Bis" android:id="@+id/tvCalendar_Until" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+    <TableRow android:id="@+id/tableRow1" android:layout_width="wrap_content" android:layout_height="wrap_content">
+        <Button android:text="Button" android:id="@+id/btnCalendar_Until" android:layout_height="16pt" android:layout_width="fill_parent" android:layout_weight="60"></Button>
+        <Button android:text="Button" android:id="@+id/btnCalendar_TimeUntil" android:layout_width="wrap_content" android:layout_height="16pt"></Button>
+    </TableRow>
+    <TextView android:id="@+id/tvCalendar_Calendar" android:layout_width="fill_parent" android:text="Kalender" android:layout_height="fill_parent"></TextView>
+    <Spinner android:id="@+id/spCalendar_Calendar" android:layout_width="wrap_content" android:layout_height="16pt"></Spinner>
+</TableLayout>
+
+</ScrollView>

@@ -1,5 +1,7 @@
 package ch.bfh.CityExplorer.Activities;
 
+import java.util.Calendar;
+
 import ch.bfh.CityExplorer.R;
 import ch.bfh.CityExplorer.Activities.MapsActivity;
 import ch.bfh.CityExplorer.Domain.PointOfInterest;
