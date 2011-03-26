@@ -21,7 +21,8 @@ public class PointOfInterestTbl implements IPointOfInterestColumn {
 		+ "url VARCHAR(255),"
 		+ "opening_hours VARCHAR(255),"
 		+ "image_url_1 VARCHAR(255),"
-		+ "image_url_2 VARCHAR(255)"
+		+ "image_url_2 VARCHAR(255),"
+		+ "address VARCHAR(255)"
 		+ ");";
 	
 	/**
@@ -30,8 +31,8 @@ public class PointOfInterestTbl implements IPointOfInterestColumn {
 	public static final String SQL_DROP = "DROP TABLE IF EXISTS " + TABLE_NAME;
 	
 	public static final String STMT_FULL_INSERT = "INSERT INTO " + TABLE_NAME
-		+ " ( city_id, category_id, name, desc, lat, long, url, opening_hours, image_url_1, image_url_2 ) "
-		+ " VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
+		+ " ( city_id, category_id, name, desc, lat, long, url, opening_hours, image_url_1, image_url_2, address ) "
+		+ " VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
 		
 	/** Liste aller bekannten Attribute. */
 	public static final String[] ALL_COLUMNS = new String[] {
@@ -45,7 +46,8 @@ public class PointOfInterestTbl implements IPointOfInterestColumn {
 		URL,
 		OPENING_HOURS,
 		IMAGE_URL_1,
-		IMAGE_URL_2
+		IMAGE_URL_2,
+		ADDRESS
 	};
 	
 	private PointOfInterestTbl() {

@@ -66,7 +66,22 @@ public class PoiDetailActivity extends Activity {
 			tvOpen.setText(sOpen);
 		}
 		else {
-			tvOpen.setText("-");
+			tvOpen.setVisibility(View.GONE);
+			
+			TextView tvOpenTitle = (TextView)findViewById(R.id.tvPoiDetail_OpeningHoursTitle);
+			tvOpenTitle.setVisibility(View.GONE);
+		}
+		
+		TextView tvAddress = (TextView)findViewById(R.id.tvPoiDetail_Address);
+		String sAddress = cursor.getString(cursor.getColumnIndex(PointOfInterestTbl.ADDRESS));
+		if (sAddress != null && sAddress.length() > 0) {
+			tvAddress.setText(sAddress);
+		}
+		else {
+			tvAddress.setVisibility(View.GONE);
+			
+			TextView tvAddressTitle = (TextView)findViewById(R.id.tvPoiDetail_AddressTitle);
+			tvAddressTitle.setVisibility(View.GONE);
 		}
 		
 		ImageView ivImage2 = (ImageView)findViewById(R.id.ivPoiDetail_Image2);

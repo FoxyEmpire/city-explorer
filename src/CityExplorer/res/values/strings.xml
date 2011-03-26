@@ -4,4 +4,5 @@
     <string name="app_name">CityExplorer</string>
     <string name="description">Beschreibung</string>
     <string name="opening_hours">Öffnungszeiten</string>
+    <string name="address">Adresse</string>
 </resources>
