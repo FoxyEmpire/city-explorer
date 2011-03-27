@@ -98,7 +98,7 @@ public class CityExplorerDatabase extends SQLiteOpenHelper {
 		stmtInsertPoi.bindNull(8);
 		stmtInsertPoi.bindString(9, "http://www.movies.ch/db_data/theaters/abatonzuerich/exterior_l.jpg");
 		stmtInsertPoi.bindString(10, "http://www.movies.ch/db_data/screens/abatonzuerich11/view1_l.jpg");
-		stmtInsertPoi.bindString(11, "Kino abaton\nHeinrichstrasse 269\n8005 Zürich");
+		stmtInsertPoi.bindString(11, "Heinrichstrasse 269\n8005 Zürich");
 		poiIds.put("Kino abaton", stmtInsertPoi.executeInsert());
 		
 		// Kino abc
@@ -111,20 +111,20 @@ public class CityExplorerDatabase extends SQLiteOpenHelper {
 		stmtInsertPoi.bindNull(8);
 		stmtInsertPoi.bindString(9, "http://www.movies.ch/db_data/theaters/abczuerich/exterior_l.jpg");
 		stmtInsertPoi.bindString(10, "http://www.movies.ch/db_data/screens/abczuerich1/view1_l.jpg");
-		stmtInsertPoi.bindString(11, "Kino abc\nWaisenhausstr. 2-4\n8000 Zürich");
+		stmtInsertPoi.bindString(11, "Waisenhausstr. 2-4\n8000 Zürich");
 		poiIds.put("Kino abc", stmtInsertPoi.executeInsert());
 		
 		// Kino Arena
 		stmtInsertPoi.bindLong(2, categoryIds.get("Kinos"));
 		stmtInsertPoi.bindString(3, "Kino Arena Filmcity");
 		stmtInsertPoi.bindString(4, "9 Säle mit insgesamt 2051 Sitzplätzen.");
-		stmtInsertPoi.bindDouble(5, 47.358413);
-		stmtInsertPoi.bindDouble(6, 8.522562);
-		stmtInsertPoi.bindString(7, "http://www.kitag.com");
+		stmtInsertPoi.bindDouble(5, 47.358482);
+		stmtInsertPoi.bindDouble(6, 8.522628);
+		stmtInsertPoi.bindString(7, "http://www.arena.ch");
 		stmtInsertPoi.bindNull(8);
 		stmtInsertPoi.bindString(9, "http://www.movies.ch/db_data/screens/arenazuerich08/view1_l.jpg");
 		stmtInsertPoi.bindString(10, "http://www.movies.ch/db_data/screens/arenazuerich04/view2_l.jpg");
-		stmtInsertPoi.bindString(11, "Kino Arena\nKalanderplatz 8\n8045 Zürich");
+		stmtInsertPoi.bindString(11, "Kalanderplatz 8\n8045 Zürich");
 		poiIds.put("Kino Arena", stmtInsertPoi.executeInsert());
 		
 		// Kino capitol
@@ -137,7 +137,7 @@ public class CityExplorerDatabase extends SQLiteOpenHelper {
 		stmtInsertPoi.bindNull(8);
 		stmtInsertPoi.bindString(9, "http://www.movies.ch/db_data/screens/capitolzuerich1/view3_l.jpg");
 		stmtInsertPoi.bindString(10, "http://www.movies.ch/db_data/screens/capitolzuerich1/view4_l.jpg");
-		stmtInsertPoi.bindString(11, "Kino capitol\nWeinbergstrasse 9\n8001 Zürich");
+		stmtInsertPoi.bindString(11, "Weinbergstrasse 9\n8001 Zürich");
 		poiIds.put("Kino capitol", stmtInsertPoi.executeInsert());
 		
 		// Kino corso
@@ -150,7 +150,7 @@ public class CityExplorerDatabase extends SQLiteOpenHelper {
 		stmtInsertPoi.bindNull(8);
 		stmtInsertPoi.bindString(9, "http://www.movies.ch/db_data/screens/corsozuerich1/view1_l.jpg");
 		stmtInsertPoi.bindString(10, "http://www.movies.ch/db_data/screens/corsozuerich4/view1_l.jpg");
-		stmtInsertPoi.bindString(11, "Kino corso\nTheaterstr. 10\n8001 Zürich");
+		stmtInsertPoi.bindString(11, "Theaterstr. 10\n8001 Zürich");
 		poiIds.put("Kino corso", stmtInsertPoi.executeInsert());
 		
 		// Kino metropol
@@ -163,7 +163,7 @@ public class CityExplorerDatabase extends SQLiteOpenHelper {
 		stmtInsertPoi.bindNull(8);
 		stmtInsertPoi.bindString(9, "http://www.movies.ch/db_data/screens/metropolzuerich1/view1_l.jpg");
 		stmtInsertPoi.bindString(10, "http://www.movies.ch/db_data/screens/metropolzuerich2/view1_l.jpg");
-		stmtInsertPoi.bindString(11, "Kino metropol\nBadenerstr. 16\n8004 Zürich");
+		stmtInsertPoi.bindString(11, "Badenerstr. 16\n8004 Zürich");
 		poiIds.put("Kino metropol", stmtInsertPoi.executeInsert());
 		
 		//--------------------
@@ -236,6 +236,19 @@ public class CityExplorerDatabase extends SQLiteOpenHelper {
 		stmtInsertPoi.bindString(10, "http://www.nzz.ch/images/paradeplatz_fullSize_1.2613447.1243149950.jpg");
 		stmtInsertPoi.bindNull(11);
 		poiIds.put("Paradeplatz", stmtInsertPoi.executeInsert());
+		
+		// Sihlcity
+		stmtInsertPoi.bindLong(2, categoryIds.get("Einkaufen"));
+		stmtInsertPoi.bindString(3, "Sihlcity");
+		stmtInsertPoi.bindString(4, "2007 ist am Kalanderplatz an der Sihl auf dem Gelände der ehemaligen Sihlpapier-Fabrik ein neues Quartier entstanden: Sihlcity. Auf knapp 100'000 m² findet das Shopping-Herz alles, was es begehrt. Dazu kommen 14 Restaurants, ein Vier-Sterne-Hotel sowie Fitnesscenter mit Wellness und Spa, Multiplexkino, Kulturhaus und Zürichs grösste Diskothek. Man sollte mit öffentlichen Verkehrsmitteln anreise, Parkplätze sind knapp.");
+		stmtInsertPoi.bindDouble(5, 47.358026);
+		stmtInsertPoi.bindDouble(6, 8.523268);
+		stmtInsertPoi.bindString(7, "http://www.sihlcity.ch");
+		stmtInsertPoi.bindString(8, "Geschäfte: Mo - Sa 09:00 - 20:00 Uhr\nMall: Täglich 08:00 - 24:00 Uhr");
+		stmtInsertPoi.bindString(9, "http://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Z%C3%BCrich_-_Sihlcity_IMG_0911.JPG/799px-Z%C3%BCrich_-_Sihlcity_IMG_0911.JPG");
+		stmtInsertPoi.bindString(10, "http://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Sihlcity.jpg/435px-Sihlcity.jpg");
+		stmtInsertPoi.bindString(11, "Kalanderplatz 1\n8045 Zürich");
+		poiIds.put("Sihlcity", stmtInsertPoi.executeInsert());
 		
 		//--------------------
 		
@@ -324,7 +337,7 @@ public class CityExplorerDatabase extends SQLiteOpenHelper {
 		stmtInsertPoi.bindDouble(5, 47.371061);
 		stmtInsertPoi.bindDouble(6, 8.540781);
 		stmtInsertPoi.bindString(7, "http://www.st-peter-zh.ch");
-		stmtInsertPoi.bindString(8, "Montag bis Freitag: 8.00 bis 18.00 Uhr\nSamstag: 10.00 bis 16.00 Uhr\nSonntag: Nach dem Gottesdienst um ca.11.00 Uhr bis 17.00 Uhr");
+		stmtInsertPoi.bindString(8, "Montag - Freitag: 8:00 - 18:00 Uhr\nSamstag: 10:00 - 16:00 Uhr\nSonntag: Nach dem Gottesdienst um ca. 11:00 - 17:00 Uhr");
 		stmtInsertPoi.bindString(9, "http://images.gadmin.st.s3.amazonaws.com/n20505/images/zuerich/detail_breit/detailboard_stpeterkirche_8086-1.jpg");
 		stmtInsertPoi.bindString(10, "");
 		stmtInsertPoi.bindNull(11);
@@ -337,7 +350,7 @@ public class CityExplorerDatabase extends SQLiteOpenHelper {
 		stmtInsertPoi.bindDouble(5, 47.384462);
 		stmtInsertPoi.bindDouble(6, 8.574792);
 		stmtInsertPoi.bindString(7, "http://www.zoo.ch");
-		stmtInsertPoi.bindString(8, "März – Oktober 09.00 – 18.00 Uhr\nNovember – Februar 09.00 – 17.00 Uhr");
+		stmtInsertPoi.bindString(8, "März – Oktober 09:00 – 18:00 Uhr\nNovember – Februar 09:00 – 17:00 Uhr");
 		stmtInsertPoi.bindString(9, "");
 		stmtInsertPoi.bindString(10, "");
 		stmtInsertPoi.bindNull(11);
