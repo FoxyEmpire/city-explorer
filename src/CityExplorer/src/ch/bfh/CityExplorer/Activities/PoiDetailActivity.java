@@ -14,9 +14,11 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
+import android.graphics.Matrix;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Display;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -45,6 +47,11 @@ public class PoiDetailActivity extends Activity {
         		null, null, null);
 		cursor.moveToFirst();
 		
+		String sName = cursor.getString(cursor.getColumnIndex(PointOfInterestTbl.NAME));
+		TextView tvName = (TextView)findViewById(R.id.tvPoiDetail_Name);
+		tvName.setText(sName);
+		
+		// Image URL 1
 		ImageView ivImage1 = (ImageView)findViewById(R.id.ivPoiDetail_Image1);
 		String sImageUrl1 = cursor.getString(cursor.getColumnIndex(PointOfInterestTbl.IMAGE_URL_1));
 		if (sImageUrl1 != null && sImageUrl1.length() > 0) {
@@ -53,9 +60,6 @@ public class PoiDetailActivity extends Activity {
 		else {
 			ivImage1.setVisibility(View.GONE);
 		}
-		
-		TextView tvName = (TextView)findViewById(R.id.tvPoiDetail_Name);
-		tvName.setText(cursor.getString(cursor.getColumnIndex(PointOfInterestTbl.NAME)));
 		
 		TextView tvDesc = (TextView)findViewById(R.id.tvPoiDetail_Description);
 		tvDesc.setText(cursor.getString(cursor.getColumnIndex(PointOfInterestTbl.DESCRIPTION)));
@@ -66,24 +70,24 @@ public class PoiDetailActivity extends Activity {
 			tvOpen.setText(sOpen);
 		}
 		else {
-			tvOpen.setVisibility(View.GONE);
-			
 			TextView tvOpenTitle = (TextView)findViewById(R.id.tvPoiDetail_OpeningHoursTitle);
 			tvOpenTitle.setVisibility(View.GONE);
+			tvOpen.setVisibility(View.GONE);
 		}
 		
+		// Address
 		TextView tvAddress = (TextView)findViewById(R.id.tvPoiDetail_Address);
 		String sAddress = cursor.getString(cursor.getColumnIndex(PointOfInterestTbl.ADDRESS));
 		if (sAddress != null && sAddress.length() > 0) {
-			tvAddress.setText(sAddress);
+			tvAddress.setText(sName + "\n" + sAddress);
 		}
 		else {
-			tvAddress.setVisibility(View.GONE);
-			
 			TextView tvAddressTitle = (TextView)findViewById(R.id.tvPoiDetail_AddressTitle);
 			tvAddressTitle.setVisibility(View.GONE);
+			tvAddress.setVisibility(View.GONE);
 		}
 		
+		// Image URL 2
 		ImageView ivImage2 = (ImageView)findViewById(R.id.ivPoiDetail_Image2);
 		String sImageUrl2 = cursor.getString(cursor.getColumnIndex(PointOfInterestTbl.IMAGE_URL_2));
 		if (sImageUrl2 != null && sImageUrl2.length() > 0) {
@@ -91,8 +95,7 @@ public class PoiDetailActivity extends Activity {
 		}
 		else {
 			ivImage2.setVisibility(View.GONE);
-		}
-		
+		}		
 	}
 
 	private Bitmap getImageBitmap(String url) {
@@ -109,6 +112,23 @@ public class PoiDetailActivity extends Activity {
 		} catch (IOException e) {
 			Log.e(TAG, "Error getting bitmap: " + url, e);
 		}
+		
+		// Resize image if necessary
+		Display display = getWindowManager().getDefaultDisplay(); 
+		if (bm.getWidth() > display.getWidth()) {
+			int newWidth = display.getWidth();
+			int newHeight = bm.getHeight() * newWidth / bm.getWidth();
+			
+	        float scaleWidth = ((float) newWidth) / bm.getWidth();
+	        float scaleHeight = ((float) newHeight) / bm.getHeight();
+			
+	        Matrix matrix = new Matrix();
+	        matrix.postScale(scaleWidth, scaleHeight);
+
+	        bm = Bitmap.createBitmap(bm, 0, 0,
+	        		bm.getWidth(), bm.getHeight(), matrix, true);
+		}
+		
 		return bm;
 	}
 	
