@@ -111,8 +111,14 @@ public class PointOfInterests extends ListActivity implements  LocationListener 
 			  Intent intent = new Intent(this, MapsActivity.class);
 		    	intent.putExtra("pointOfInterestId", listItem.getId());
 				startActivity(intent);
+				break;
 		  case R.id.miPointOfInterest_Cancel:
 			  return true;
+		  case R.id.miPointOfInterest_Information:
+			  	Intent intentInformation = new Intent(me, PoiDetailActivity.class);
+			  	intentInformation.putExtra("poiId", listItem.getId());
+				startActivity(intentInformation);
+				break;
 		  }
 		  return true;
 	}
@@ -213,7 +219,7 @@ public class PointOfInterests extends ListActivity implements  LocationListener 
     	public long getItemId(int arg0) {return 0;}
 
     	@Override
-    	public View getView(final int pPosition, View convertView, ViewGroup parent) {
+    	public View getView(int pPosition, View convertView, ViewGroup parent) {
     		if (convertView == null) {
     			convertView = mLayoutInflater.inflate(R.layout.listpointofintersts, parent, false);
     		}
@@ -223,13 +229,6 @@ public class PointOfInterests extends ListActivity implements  LocationListener 
     				
     				((TextView) convertView.findViewById(R.id.tvPointOfInterests_Street)).setText(items.get(pPosition).getStreet());
     				((TextView) convertView.findViewById(R.id.tvPointOfInterests_Time)).setText(items.get(pPosition).getDuration());
-    			convertView.setOnClickListener(new OnClickListener(){
-    					public void onClick(View v){
-    						Intent intent = new Intent(me, PoiDetailActivity.class);
-    				    	intent.putExtra("poiId", items.get(pPosition).getId());
-    						startActivity(intent);
-						}
-				});
     		return convertView;
     	}
     }
