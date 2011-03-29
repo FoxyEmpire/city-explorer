@@ -31,6 +31,12 @@ public class HomeActivity extends Activity {
         		OnClickListOfPointsOfInterests(v);
         	}
     	});
+        
+        findViewById(R.id.btnFavorit).setOnClickListener(new OnClickListener(){
+        	public void onClick(View v){
+        		OnClickFavorit(v);
+        	}
+    	});
     }
     
     protected void OnClickMap(View view){
@@ -40,6 +46,11 @@ public class HomeActivity extends Activity {
     
     protected void OnClickListOfPointsOfInterests(View view){
     	Intent intent = new Intent(this,GroupActivity.class);
+		startActivity(intent);
+    }
+    
+    protected void OnClickFavorit(View view){
+    	Intent intent = new Intent(this,FavoritActivity.class);
 		startActivity(intent);
     }
 }
