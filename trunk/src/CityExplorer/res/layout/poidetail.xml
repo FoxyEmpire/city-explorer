@@ -24,11 +24,11 @@
 				android:textStyle="bold"
 				android:textSize="10pt">
 			</TextView>
+		    <ProgressBar android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="10px" android:id="@+id/pbPoiDetail_Image1"></ProgressBar>
 			
 		    <ImageView
-		    	android:src="@drawable/icon"
 		    	android:id="@+id/ivPoiDetail_Image1"
-		    	android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_marginTop="10px">
+		    	android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_marginTop="10px" android:src="@drawable/icon" android:visibility="gone">
 		    </ImageView>
 			
 		    <TextView
@@ -75,12 +75,12 @@
 		    	android:text="TextView"
 		    	android:id="@+id/tvPoiDetail_Address">
 		    </TextView>
+		    <ProgressBar android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="10px" android:id="@+id/pbPoiDetail_Image2"></ProgressBar>
 			
 		    <ImageView
-		    	android:src="@drawable/icon"
 		    	android:id="@+id/ivPoiDetail_Image2"
 		    	android:layout_height="wrap_content"
-		    	android:layout_width="wrap_content" android:layout_marginTop="10px">
+		    	android:layout_width="wrap_content" android:layout_marginTop="10px" android:src="@drawable/icon" android:visibility="gone">
 		    </ImageView>
 		    
         </LinearLayout>
