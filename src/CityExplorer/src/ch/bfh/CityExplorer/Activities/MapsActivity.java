@@ -35,8 +35,6 @@ public class MapsActivity extends MapActivity {
         MapView mapView = (MapView) findViewById(R.id.mapview);
         mapView.setBuiltInZoomControls(true);
         
-        
-        
         //List<Overlay> mapOverlays = mapView.getOverlays();
         //Drawable drawable = this.getResources().getDrawable(R.drawable.androidmarker);
         //HelloItemizedOverlay itemizedOverlay = new HelloItemizedOverlay(drawable, this);
@@ -52,6 +50,7 @@ public class MapsActivity extends MapActivity {
         //mapOverlays.add(itemizedOverlay);
         
         int id;
+        //int category_id;
         String name;
         String desc;
         double lat;
@@ -71,6 +70,7 @@ public class MapsActivity extends MapActivity {
         
         while (cursor.isAfterLast() == false) {
         	id = cursor.getInt(cursor.getColumnIndex(IPointOfInterestColumn.ID));
+        	//category_id = cursor.getInt(cursor.getColumnIndex(IPointOfInterestColumn.CATEGORY_ID));
         	name = cursor.getString(cursor.getColumnIndex(IPointOfInterestColumn.NAME));
         	desc = cursor.getString(cursor.getColumnIndex(IPointOfInterestColumn.DESCRIPTION));
         	lat = cursor.getDouble(cursor.getColumnIndex(IPointOfInterestColumn.LATITUDE));
@@ -86,7 +86,6 @@ public class MapsActivity extends MapActivity {
 	
 	@Override
 	protected boolean isRouteDisplayed() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 	
