@@ -45,7 +45,7 @@ public class GroupActivity  extends ListActivity {
         	items.add(item);
         	cursor.moveToNext();
         }        
-        
+        cursor.close();
        
         mAdapter = new ListAdapter(this, items);
         this.setListAdapter(mAdapter);

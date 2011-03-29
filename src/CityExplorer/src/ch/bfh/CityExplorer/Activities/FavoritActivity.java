@@ -4,47 +4,38 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URI;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-
-import ch.bfh.CityExplorer.R;
-import ch.bfh.CityExplorer.Data.CityExplorerDatabase;
-import ch.bfh.CityExplorer.Data.CityExplorerStorage;
-import ch.bfh.CityExplorer.Data.IPointOfInterestColumn;
-import ch.bfh.CityExplorer.Data.PointOfInterestTbl;
-import android.app.ListActivity;
-import android.content.Context;
-import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.view.*;
-import android.view.View.OnClickListener;
-import android.widget.*;
-import android.widget.AdapterView.AdapterContextMenuInfo;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.json.*;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
-import com.google.android.maps.MapView;
-
-public class PointOfInterests extends ListActivity implements  LocationListener {
+import android.app.ListActivity;
+import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.TextView;
+import android.widget.AdapterView.AdapterContextMenuInfo;
+import ch.bfh.CityExplorer.R;
+import ch.bfh.CityExplorer.Data.*;
+public class FavoritActivity extends ListActivity {
 	
 	private PointOfInteretsListAdapter mAdapter;
 	private SQLiteDatabase db;
 	private CityExplorerStorage mStorage;
-	private Location _currentLocation;
-	private List<LoadItemsTask> tasks;
-	private List<ListItem> items = new ArrayList<ListItem>();
-	private Object lock = new Object();
-	private PointOfInterests me = this;
 	
 	/** Called when the activity is first created. */
     @Override
@@ -53,13 +44,14 @@ public class PointOfInterests extends ListActivity implements  LocationListener 
         
         db = new CityExplorerDatabase(this).getReadableDatabase();
         
-        int categoryId = getIntent().getExtras().getInt("categoryId");
+        Cursor cursor = db.rawQuery(
+        		"SELECT "+ PointOfInterestTbl.ALL_COLUMNS+
+        		" FROM "+PointOfInterestTbl.TABLE_NAME+
+        		" WHERE "+PointOfInterestTbl.ID+" IN " +
+				"(SELECT "+FavouriteTbl.POI_ID+" FROM "+FavouriteTbl.TABLE_NAME, new String[0]);
         
-        Cursor cursor = db.query(PointOfInterestTbl.TABLE_NAME,
-        		PointOfInterestTbl.ALL_COLUMNS, PointOfInterestTbl.CATEGORY_ID + " = ?", new String[]{String.valueOf(categoryId)},
-        		IPointOfInterestColumn.NAME, null, null);
         cursor.moveToFirst();
-        
+        ArrayList<ListItem> items = new ArrayList<ListItem>();
         while (cursor.isAfterLast() == false) {
         	int id = cursor.getInt(cursor.getColumnIndex(PointOfInterestTbl.ID));
         	String name = cursor.getString(cursor.getColumnIndex(PointOfInterestTbl.NAME));
@@ -69,19 +61,16 @@ public class PointOfInterests extends ListActivity implements  LocationListener 
         	items.add(item);
         	cursor.moveToNext();
         }        
-        cursor.close();
+        
        
         mAdapter = new PointOfInteretsListAdapter(this, items);
         this.setListAdapter(mAdapter);
         
         registerForContextMenu(getListView());
-        
-        LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
-        lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000L, 500.0f, this);
-        lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000L, 500.0f, this);
-
-       tasks = new ArrayList<LoadItemsTask>();
-        
+       
+        for (ListItem item : items) {
+        	new LoadItemsTask().execute(item);
+        }
 
         mStorage = new CityExplorerStorage(this);       
     }
@@ -95,12 +84,6 @@ public class PointOfInterests extends ListActivity implements  LocationListener 
 	
 	@Override
 	public boolean onContextItemSelected(MenuItem item){
-		
-		for (LoadItemsTask task : tasks){
-			task.cancel(true);
-		}
-		tasks.clear();
-		
 		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
 		ListItem listItem = (ListItem)getListView().getItemAtPosition(info.position);
 		  switch (item.getItemId()) {
@@ -213,7 +196,7 @@ public class PointOfInterests extends ListActivity implements  LocationListener 
     	public long getItemId(int arg0) {return 0;}
 
     	@Override
-    	public View getView(final int pPosition, View convertView, ViewGroup parent) {
+    	public View getView(int pPosition, View convertView, ViewGroup parent) {
     		if (convertView == null) {
     			convertView = mLayoutInflater.inflate(R.layout.listpointofintersts, parent, false);
     		}
@@ -223,13 +206,7 @@ public class PointOfInterests extends ListActivity implements  LocationListener 
     				
     				((TextView) convertView.findViewById(R.id.tvPointOfInterests_Street)).setText(items.get(pPosition).getStreet());
     				((TextView) convertView.findViewById(R.id.tvPointOfInterests_Time)).setText(items.get(pPosition).getDuration());
-    			convertView.setOnClickListener(new OnClickListener(){
-    					public void onClick(View v){
-    						Intent intent = new Intent(me, PoiDetailActivity.class);
-    				    	intent.putExtra("poiId", items.get(pPosition).getId());
-    						startActivity(intent);
-						}
-				});
+    			
     		return convertView;
     	}
     }
@@ -251,17 +228,9 @@ public class PointOfInterests extends ListActivity implements  LocationListener 
        
         private void UpdateListItem(ListItem item){
         	try{
-    			double lat; 
-    			double lng;
-        		synchronized (lock) {
-        			if (_currentLocation == null) return;
-        			lat = _currentLocation.getLatitude();
-        			lng = _currentLocation.getLongitude();
-				}
-        		
 		        HttpClient client = new DefaultHttpClient();
 		        HttpGet request = new HttpGet();
-		        String url = String.format("http://maps.googleapis.com/maps/api/directions/json?origin=%f,%f&destination=%f,%f&sensor=false&mode=walking", lat, lng, item.getLatidute(), item.getLongitude());
+		        String url = String.format("http://maps.googleapis.com/maps/api/directions/json?origin=Adliswil&destination=%f,%f&sensor=false", item.getLatidute(), item.getLongitude());
 		        request.setURI(new URI(url));
 		        HttpResponse response = client.execute(request);
 		        BufferedReader in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
@@ -294,34 +263,4 @@ public class PointOfInterests extends ListActivity implements  LocationListener 
 	        }
         }
     }
-
-	@Override
-	public void onLocationChanged(Location location) {
-		synchronized (lock) {
-			_currentLocation = location;
-		}
-		for (ListItem item : items) {
-        	LoadItemsTask task = new LoadItemsTask();
-        	tasks.add(task);
-        	task.execute(item);
-        }
-	}
-
-	@Override
-	public void onProviderDisabled(String arg) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onProviderEnabled(String arg) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onStatusChanged(String arg0, int arg1, Bundle arg2) {
-		// TODO Auto-generated method stub
-		
-	}
 }
