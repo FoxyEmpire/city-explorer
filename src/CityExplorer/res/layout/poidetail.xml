@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:orientation="vertical">
+	
+    <ScrollView
+		android:layout_height="wrap_content"
+		android:id="@+id/scrollView1"
+		android:layout_width="fill_parent">
+		
+        <LinearLayout
+			android:id="@+id/linearLayout1"
+			android:layout_width="fill_parent"
+			android:layout_height="fill_parent"
+			android:orientation="vertical">
+			
+		    <TextView
+				android:text="TextView"
+				android:layout_height="wrap_content"
+				android:id="@+id/tvPoiDetail_Name"
+				android:layout_width="fill_parent"
+				android:textStyle="bold"
+				android:textSize="10pt">
+			</TextView>
+			
+		    <ImageView
+		    	android:src="@drawable/icon"
+		    	android:id="@+id/ivPoiDetail_Image1"
+		    	android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_marginTop="10px">
+		    </ImageView>
+			
+		    <TextView
+		    	android:layout_width="wrap_content"
+		    	android:layout_height="wrap_content"
+		    	android:text="@string/description"
+		    	android:id="@+id/tvPoiDetail_DescriptionTitle"
+		    	android:textStyle="bold" android:layout_marginTop="10px">
+		    </TextView>
+			
+		    <TextView
+		    	android:layout_width="wrap_content"
+		    	android:layout_height="wrap_content"
+		    	android:text="TextView"
+		    	android:id="@+id/tvPoiDetail_Description">
+		    </TextView>
+		    
+		    <TextView
+		    	android:layout_width="wrap_content"
+		    	android:layout_height="wrap_content"
+		    	android:text="@string/opening_hours"
+		    	android:id="@+id/tvPoiDetail_OpeningHoursTitle"
+		    	android:textStyle="bold" android:layout_marginTop="10px">
+		    </TextView>
+		    
+		    <TextView
+		    	android:layout_width="wrap_content"
+		    	android:layout_height="wrap_content"
+		    	android:text="TextView"
+		    	android:id="@+id/tvPoiDetail_OpeningHours">
+		    </TextView>
+		    
+		    <TextView
+		    	android:layout_width="wrap_content"
+		    	android:layout_height="wrap_content"
+		    	android:text="@string/address"
+		    	android:id="@+id/tvPoiDetail_AddressTitle"
+		    	android:textStyle="bold" android:layout_marginTop="10px">
+		    </TextView>
+		    
+		    <TextView
+		    	android:layout_width="wrap_content"
+		    	android:layout_height="wrap_content"
+		    	android:text="TextView"
+		    	android:id="@+id/tvPoiDetail_Address">
+		    </TextView>
+			
+		    <ImageView
+		    	android:src="@drawable/icon"
+		    	android:id="@+id/ivPoiDetail_Image2"
+		    	android:layout_height="wrap_content"
+		    	android:layout_width="wrap_content" android:layout_marginTop="10px">
+		    </ImageView>
+		    
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
