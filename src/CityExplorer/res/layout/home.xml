@@ -9,6 +9,6 @@
     </TableRow>
     <TableRow android:id="@+id/tableRow2" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_weight="50">
     	<ImageButton android:src="@drawable/star" android:id="@+id/btnFavorit" android:background="@drawable/custombutton" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_weight="50" android:layout_margin="2pt"></ImageButton>
-        <ImageButton android:src="@drawable/icon" android:id="@+id/Button01" android:background="@drawable/custombutton" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_weight="50" android:layout_margin="2pt"></ImageButton>
+        <ImageButton android:src="@drawable/about" android:id="@+id/btnAbout" android:background="@drawable/custombutton" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_weight="50" android:layout_margin="2pt"></ImageButton>
     </TableRow>
 </TableLayout>
