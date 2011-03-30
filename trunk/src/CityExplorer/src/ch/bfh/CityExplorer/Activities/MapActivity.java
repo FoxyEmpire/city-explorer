@@ -39,7 +39,7 @@ public abstract class MapActivity extends com.google.android.maps.MapActivity im
         
         locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
         
-        Drawable drawable = this.getResources().getDrawable(R.drawable.androidmarker);
+        Drawable drawable = this.getResources().getDrawable(R.drawable.pin);
         itemizedOverlay = new MapsItemizedOverlay(drawable);
         mapView.getOverlays().add(itemizedOverlay);
     }
