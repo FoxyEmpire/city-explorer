@@ -35,7 +35,7 @@ public abstract class MapActivity extends com.google.android.maps.MapActivity im
         mapView.setBuiltInZoomControls(true);
         
         mapController = mapView.getController();
-        mapController.setZoom(20);
+        mapController.setZoom(15);
         
         locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
         
