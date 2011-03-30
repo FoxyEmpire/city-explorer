@@ -12,7 +12,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
- 		<activity android:name=".Activities.MapsActivity"
+ 		<activity android:name=".Activities.RouteMapActivity"
                   android:label="@string/app_name">
         </activity>
         <activity android:name=".Activities.PointOfInterests"

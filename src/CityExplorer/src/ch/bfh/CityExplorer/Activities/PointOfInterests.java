@@ -8,6 +8,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import ch.bfh.CityExplorer.R;
+import ch.bfh.CityExplorer.Application.Route;
+import ch.bfh.CityExplorer.Application.RouteInfo;
 import ch.bfh.CityExplorer.Data.CityExplorerDatabase;
 import ch.bfh.CityExplorer.Data.CityExplorerStorage;
 import ch.bfh.CityExplorer.Data.IPointOfInterestColumn;
@@ -23,17 +25,10 @@ import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.*;
-import android.view.View.OnClickListener;
 import android.widget.*;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.json.*;
-
-import com.google.android.maps.MapView;
+import com.google.android.maps.GeoPoint;
 
 public class PointOfInterests extends ListActivity implements  LocationListener {
 	
@@ -45,12 +40,13 @@ public class PointOfInterests extends ListActivity implements  LocationListener 
 	private List<ListItem> items = new ArrayList<ListItem>();
 	private Object lock = new Object();
 	private PointOfInterests me = this;
+	private LocationManager locationManager;
 	
 	/** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
+
         db = new CityExplorerDatabase(this).getReadableDatabase();
         
         int categoryId = getIntent().getExtras().getInt("categoryId");
@@ -64,8 +60,8 @@ public class PointOfInterests extends ListActivity implements  LocationListener 
         	int id = cursor.getInt(cursor.getColumnIndex(PointOfInterestTbl.ID));
         	String name = cursor.getString(cursor.getColumnIndex(PointOfInterestTbl.NAME));
         	ListItem item = new ListItem(id, name);
-        	item.setLongitude(cursor.getDouble(cursor.getColumnIndex(PointOfInterestTbl.LONGITUDE)));
-        	item.setLatidute(cursor.getDouble(cursor.getColumnIndex(PointOfInterestTbl.LATITUDE)));
+        	item.longitude = cursor.getDouble(cursor.getColumnIndex(PointOfInterestTbl.LONGITUDE));
+        	item.latidute = cursor.getDouble(cursor.getColumnIndex(PointOfInterestTbl.LATITUDE));
         	items.add(item);
         	cursor.moveToNext();
         }        
@@ -76,12 +72,9 @@ public class PointOfInterests extends ListActivity implements  LocationListener 
         
         registerForContextMenu(getListView());
         
-        LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
-        lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000L, 500.0f, this);
-        lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000L, 500.0f, this);
-
-       tasks = new ArrayList<LoadItemsTask>();
+        locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
         
+        tasks = new ArrayList<LoadItemsTask>();
 
         mStorage = new CityExplorerStorage(this);       
     }
@@ -94,29 +87,40 @@ public class PointOfInterests extends ListActivity implements  LocationListener 
 	}
 	
 	@Override
-	public boolean onContextItemSelected(MenuItem item){
-		
+	public void onPause(){
+		super.onPause();
+		locationManager.removeUpdates(this);
 		for (LoadItemsTask task : tasks){
 			task.cancel(true);
 		}
 		tasks.clear();
-		
+	}
+	
+	public void onResume(){
+		super.onResume();
+		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 120000L, 500.0f, this);
+        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 120000L, 500.0f, this);
+	}
+	
+	@Override
+	public boolean onContextItemSelected(MenuItem item){
 		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
 		ListItem listItem = (ListItem)getListView().getItemAtPosition(info.position);
 		  switch (item.getItemId()) {
 		  case R.id.miPointOfInterest_ToFavorit:
-			  mStorage.InsertFavourite(listItem.getId());
+			  mStorage.InsertFavourite(listItem.id);
 			  break;
 		  case R.id.miPointOfInterest_NavigateTo:
-			  Intent intent = new Intent(this, MapsActivity.class);
-		    	intent.putExtra("pointOfInterestId", listItem.getId());
+			  Intent intent = new Intent(this, RouteMapActivity.class);
+		    	intent.putExtra("pointOfInterestId", listItem.id);
 				startActivity(intent);
 				break;
 		  case R.id.miPointOfInterest_Cancel:
 			  return true;
 		  case R.id.miPointOfInterest_Information:
 			  	Intent intentInformation = new Intent(me, PoiDetailActivity.class);
-			  	intentInformation.putExtra("poiId", listItem.getId());
+			  	intentInformation.putExtra("poiId", listItem.id);
+			  	intentInformation.putExtra("enableNavigateTo", true);
 				startActivity(intentInformation);
 				break;
 		  }
@@ -131,6 +135,7 @@ public class PointOfInterests extends ListActivity implements  LocationListener 
     	private String duration;
     	private double latidute;
     	private double longitude;
+    	private boolean geoLoaded;
     	
     	public ListItem(int id, String name){
     		this.id = id;
@@ -138,54 +143,6 @@ public class PointOfInterests extends ListActivity implements  LocationListener 
     		distance = "~ m";
     		duration = "~ mins";
     	}
-    	
-    	public int getId() {
-			return id;
-		}
-
-		public String getName() {
-			return name;
-		}
-
-		public String getStreet() {
-			return street;
-		}
-
-		public void setStreet(String street) {
-			this.street = street;
-		}
-
-		public String getDistance() {
-			return distance;
-		}
-
-		public void setDistance(String distance) {
-			this.distance = distance;
-		}
-
-		public String getDuration() {
-			return duration;
-		}
-
-		public void setDuration(String duration) {
-			this.duration = duration;
-		}
-
-		public void setLongitude(double longitude) {
-			this.longitude = longitude;
-		}
-
-		public double getLongitude() {
-			return longitude;
-		}
-
-		public void setLatidute(double latidute) {
-			this.latidute = latidute;
-		}
-
-		public double getLatidute() {
-			return latidute;
-		}
     }
     
     private class PointOfInteretsListAdapter extends BaseAdapter {
@@ -208,7 +165,7 @@ public class PointOfInterests extends ListActivity implements  LocationListener 
     	
     	public void setItem(ListItem item){
     		for (ListItem i : items){
-    			if (i.getId() == item.getId()){
+    			if (i.id == item.id){
     				i = item;
     			}
     		}
@@ -224,11 +181,11 @@ public class PointOfInterests extends ListActivity implements  LocationListener 
     			convertView = mLayoutInflater.inflate(R.layout.listpointofintersts, parent, false);
     		}
 
-    				((TextView) convertView.findViewById(R.id.tvPointOfInterest_Name)).setText(items.get(pPosition).getName());
-    				((TextView) convertView.findViewById(R.id.tvPointOfInterests_Distance)).setText(items.get(pPosition).getDistance());
+    				((TextView) convertView.findViewById(R.id.tvPointOfInterest_Name)).setText(items.get(pPosition).name);
+    				((TextView) convertView.findViewById(R.id.tvPointOfInterests_Distance)).setText(items.get(pPosition).distance);
     				
-    				((TextView) convertView.findViewById(R.id.tvPointOfInterests_Street)).setText(items.get(pPosition).getStreet());
-    				((TextView) convertView.findViewById(R.id.tvPointOfInterests_Time)).setText(items.get(pPosition).getDuration());
+    				((TextView) convertView.findViewById(R.id.tvPointOfInterests_Street)).setText(items.get(pPosition).street);
+    				((TextView) convertView.findViewById(R.id.tvPointOfInterests_Time)).setText(items.get(pPosition).duration);
     		return convertView;
     	}
     }
@@ -246,50 +203,25 @@ public class PointOfInterests extends ListActivity implements  LocationListener 
         @Override
         protected void onPostExecute(ListItem result) {
             mAdapter.setItem(result);
+            result.geoLoaded = true;
         }
        
         private void UpdateListItem(ListItem item){
         	try{
-    			double lat; 
-    			double lng;
-        		synchronized (lock) {
-        			if (_currentLocation == null) return;
-        			lat = _currentLocation.getLatitude();
-        			lng = _currentLocation.getLongitude();
-				}
-        		
-		        HttpClient client = new DefaultHttpClient();
-		        HttpGet request = new HttpGet();
-		        String url = String.format("http://maps.googleapis.com/maps/api/directions/json?origin=%f,%f&destination=%f,%f&sensor=false&mode=walking", lat, lng, item.getLatidute(), item.getLongitude());
-		        request.setURI(new URI(url));
-		        HttpResponse response = client.execute(request);
-		        BufferedReader in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-		        StringBuffer sb = new StringBuffer("");
-		        String line = "";
-		        while ((line = in.readLine()) != null) {
-		            sb.append(line);
-		        }
-		        in.close();
-
-		        JSONObject jObject = new JSONObject(sb.toString());
-		        
-		        JSONArray jsonArray = jObject.getJSONArray("routes");
-		        jsonArray = jsonArray.getJSONObject(0).getJSONArray("legs");
-		        JSONObject leg = jsonArray.getJSONObject(0);
-		        JSONObject jsonObject = leg.getJSONObject("distance");
-				String distance = jsonObject.getString("text");
-				
-				jsonObject = leg.getJSONObject("duration");
-				String duration = jsonObject.getString("text");
-				
-				String street = leg.getString("end_address").split(",")[0];
-				
-				item.setDistance(distance);
-				item.setDuration(duration);
-				item.setStreet(street);
+    			if (_currentLocation == null) return;
+    			
+    			double lat = _currentLocation.getLatitude();
+    			double lng = _currentLocation.getLongitude();
+    			
+    			GeoPoint src = new GeoPoint((int)(lat * 1E6), (int)(lng*1E6));
+    			GeoPoint dest = new GeoPoint((int)(item.latidute * 1E6), (int)(item.longitude*1E6));
+    			
+    			Route route = new Route(src, dest);
+        		RouteInfo info = route.getRouteInfo();
+    			
+				item.distance = info.getDistance();
+				item.duration = info.getDuration();
 	        }catch(Exception e){
-	        	// TODO:
-	        	Exception ex = e;
 	        }
         }
     }
@@ -300,6 +232,8 @@ public class PointOfInterests extends ListActivity implements  LocationListener 
 			_currentLocation = location;
 		}
 		for (ListItem item : items) {
+			if (item.geoLoaded) continue;
+			
         	LoadItemsTask task = new LoadItemsTask();
         	tasks.add(task);
         	task.execute(item);
