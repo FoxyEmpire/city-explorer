@@ -5,4 +5,5 @@
     <string name="description">Beschreibung</string>
     <string name="opening_hours">Öffnungszeiten</string>
     <string name="address">Adresse</string>
+    <string name="categories">Kategorien</string>
 </resources>
