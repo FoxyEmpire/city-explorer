@@ -4,10 +4,14 @@ import ch.bfh.CityExplorer.R;
 import ch.bfh.CityExplorer.Data.CityExplorerDatabase;
 import ch.bfh.CityExplorer.Data.PointOfInterestTbl;
 import android.app.Activity;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.Display;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -18,6 +22,8 @@ public class PoiDetailActivity extends Activity implements ImageReceivedCallback
 	private static final String TAG = "PoiDetailActivity";
 
 	private SQLiteDatabase db;
+	private int poiId;
+	private boolean enableNavigateTo;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +32,8 @@ public class PoiDetailActivity extends Activity implements ImageReceivedCallback
 		
 		db = new CityExplorerDatabase(this).getReadableDatabase();
 		
-		int poiId = getIntent().getExtras().getInt("poiId");
+		poiId = getIntent().getExtras().getInt("poiId");
+		enableNavigateTo = getIntent().getExtras().getBoolean("enableNavigateTo", false);
 		
 		Cursor cursor = db.query(
 				PointOfInterestTbl.TABLE_NAME,
@@ -96,4 +103,28 @@ public class PoiDetailActivity extends Activity implements ImageReceivedCallback
         this.runOnUiThread(displayer);
 	}
 	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		if (poiId >= 0){
+	    MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.poidetailmenu, menu);
+	    menu.getItem(0).setEnabled(enableNavigateTo);
+	    return true;
+		}
+		return false;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    // Handle item selection
+	    switch (item.getItemId()) {
+	    case R.id.navigateTo:
+	    	Intent intent = new Intent(this, MapsActivity.class);
+	    	intent.putExtra("pointOfInterestId", poiId);
+			startActivity(intent);
+	        return true;
+	    default:
+	        return super.onOptionsItemSelected(item);
+	    }
+	}
 }

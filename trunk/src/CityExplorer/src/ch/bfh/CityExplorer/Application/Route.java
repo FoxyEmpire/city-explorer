@@ -45,7 +45,20 @@ public class Route {
        return new JSONObject(sb.toString());
 	}
 	
-	public List<GeoPoint> GetRoutePoints() throws Exception{
+	public RouteInfo getRouteInfo() throws Exception {
+		JSONArray jsonArray = GetJSON().getJSONArray("routes");
+		jsonArray = jsonArray.getJSONObject(0).getJSONArray("legs");
+        JSONObject leg = jsonArray.getJSONObject(0);
+        JSONObject jsonObject = leg.getJSONObject("distance");
+		String distance = jsonObject.getString("text");
+		
+		jsonObject = leg.getJSONObject("duration");
+		String duration = jsonObject.getString("text");
+		
+		return new RouteInfo(duration, distance);
+	}
+	
+	public List<GeoPoint> getRoutePoints() throws Exception{
 		List<GeoPoint> points = new ArrayList<GeoPoint>();
 		
 		JSONArray jsonArray = GetJSON().getJSONArray("routes");

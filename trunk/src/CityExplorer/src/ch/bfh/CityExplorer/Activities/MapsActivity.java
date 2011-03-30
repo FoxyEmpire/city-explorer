@@ -212,7 +212,7 @@ public class MapsActivity extends MapActivity implements  LocationListener {
 			 Route route = new Route(params[0], navigateTo);
 		        List<GeoPoint> points;
 				try {
-					points = route.GetRoutePoints();
+					points = route.getRoutePoints();
 					Message msg = new Message();  
 					msg.obj = points;  
 					handler.dispatchMessage(msg);
