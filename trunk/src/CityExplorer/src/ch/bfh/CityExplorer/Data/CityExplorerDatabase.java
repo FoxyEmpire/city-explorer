@@ -11,7 +11,7 @@ import android.database.sqlite.SQLiteStatement;
 public class CityExplorerDatabase extends SQLiteOpenHelper {
 
 	private static final String DATABASE_NAME = "cityexplorer.db";
-	private static final int DATABASE_VERSION = 7;
+	private static final int DATABASE_VERSION = 8;
 	
 	public CityExplorerDatabase(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);

@@ -33,7 +33,7 @@ import ch.bfh.CityExplorer.R;
 import ch.bfh.CityExplorer.Data.*;
 public class FavoritActivity extends ListActivity {
 	
-	private PointOfInteretsListAdapter mAdapter;
+	private FavoritListAdapter mAdapter;
 	private SQLiteDatabase db;
 	private CityExplorerStorage mStorage;
 	
@@ -63,7 +63,7 @@ public class FavoritActivity extends ListActivity {
         }        
         
        
-        mAdapter = new PointOfInteretsListAdapter(this, items);
+        mAdapter = new FavoritListAdapter(this, items);
         this.setListAdapter(mAdapter);
         
         registerForContextMenu(getListView());
@@ -88,9 +88,8 @@ public class FavoritActivity extends ListActivity {
 		ListItem listItem = (ListItem)getListView().getItemAtPosition(info.position);
 		switch (item.getItemId()) {
 			case R.id.miFavoritMenu_Remove:
+				mAdapter.removeItem(listItem);
 				mStorage.DeleteFavourite(listItem.getId());
-				// TODO: Invalidate!
-				//mAdapter.notifyDataSetChanged();
 				break;
 			case R.id.miFavoritMenu_NavigateTo:
 				Intent intent = new Intent(this, MapsActivity.class);
@@ -167,12 +166,12 @@ public class FavoritActivity extends ListActivity {
 		}
     }
     
-    private class PointOfInteretsListAdapter extends BaseAdapter {
+    private class FavoritListAdapter extends BaseAdapter {
     	
     	private final LayoutInflater mLayoutInflater;
     	private List<ListItem> items;
 
-    	public PointOfInteretsListAdapter(Context pContext, List<ListItem> items){
+    	public FavoritListAdapter(Context pContext, List<ListItem> items){
     			mLayoutInflater = (LayoutInflater) pContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     			this.items = items;
     	}
@@ -192,6 +191,19 @@ public class FavoritActivity extends ListActivity {
     			}
     		}
     		notifyDataSetChanged();
+    	}
+    	
+    	public void removeItem(ListItem item) {
+    		ListItem found = null;
+    		for (ListItem i : items){
+    			if (i.getId() == item.getId()){
+    				found = i;
+    				break;
+    			}
+    		}
+    		if (found != null) {
+    			items.remove(found);
+    		}
     	}
 
     	@Override
