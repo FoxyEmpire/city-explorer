@@ -10,5 +10,11 @@
     <string name="addFavorit">Zu meinen Favoriten</string>
     <string name="cancel">Abbrechen</string>
     <string name="categories">Kategorien</string>
+    <string name="myLocation">Eigener Ort</string>
+    <string name="titelLoadImageError">Fehler</string>
+    <string name="textLoadImageError">Ein Bild konnte nicht geladen werden</string>
+    <string name="showDestination">Zum Ziel</string>
+    <string name="showPoi">Zu den POIs</string>
+    <string name="showRoute">Zeige Route</string>
     <string name="removeFavorit">Aus Favoriten löschen</string>
 </resources>

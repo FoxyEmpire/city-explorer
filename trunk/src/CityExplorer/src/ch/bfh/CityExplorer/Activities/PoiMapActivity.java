@@ -1,5 +1,6 @@
 package ch.bfh.CityExplorer.Activities;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.google.android.maps.GeoPoint;
@@ -7,14 +8,19 @@ import com.google.android.maps.Overlay;
 
 import ch.bfh.CityExplorer.R;
 import ch.bfh.CityExplorer.Application.PoiMarker;
+import ch.bfh.CityExplorer.Application.PointOverlay;
 import ch.bfh.CityExplorer.Data.CategoryTbl;
 import ch.bfh.CityExplorer.Data.CityExplorerDatabase;
 import ch.bfh.CityExplorer.Data.ICategoryColumn;
 import ch.bfh.CityExplorer.Data.IPointOfInterestColumn;
 import ch.bfh.CityExplorer.Data.PointOfInterestTbl;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
+import android.location.Location;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -28,6 +34,8 @@ public class PoiMapActivity extends MapActivity {
 
 	private Drawable pin = null;
 	private List<Overlay> mapOverlays = null;
+	private List<GeoPoint> points;
+	private Bitmap marker;
 	
 	/** Called when the activity is first created. */
     @Override
@@ -36,10 +44,27 @@ public class PoiMapActivity extends MapActivity {
     	
     	pin = this.getResources().getDrawable(R.drawable.pin);
     	mapOverlays = mapView.getOverlays();
+    	points = new ArrayList<GeoPoint>();
     	
     	db = new CityExplorerDatabase(this).getReadableDatabase();
-    	
+    	marker = BitmapFactory.decodeResource(this.getResources(), R.drawable.pin2);
     	ResetMarkers();
+    }
+    
+    @Override
+    public void onLocationChanged(Location location) {
+    	super.onLocationChanged(location);
+    	
+    	GeoPoint current = new GeoPoint((int)(location.getLatitude() * 1E6), (int)(location.getLongitude() * 1E6));
+    	mapView.getOverlays().add(new PointOverlay(current, marker));
+    }
+    
+    protected boolean onMarkerClicked(PoiMarker marker){
+		Intent intent = new Intent(this, PoiDetailActivity.class);
+    	intent.putExtra("poiId", marker.getId());
+    	intent.putExtra("enableNavigateTo", true);
+		startActivity(intent);
+		return true;
     }
     
     private void ResetMarkers() {
@@ -62,7 +87,7 @@ public class PoiMapActivity extends MapActivity {
         cursor.moveToFirst();
         
         mapOverlays.clear();
-        
+        points.clear();
         MapsItemizedOverlay overlay = new MapsItemizedOverlay(pin, this);
         while (cursor.isAfterLast() == false) {
         	id = cursor.getInt(cursor.getColumnIndex(IPointOfInterestColumn.ID));
@@ -71,6 +96,7 @@ public class PoiMapActivity extends MapActivity {
         	lat = cursor.getDouble(cursor.getColumnIndex(IPointOfInterestColumn.LATITUDE));
         	lng = cursor.getDouble(cursor.getColumnIndex(IPointOfInterestColumn.LONGITUDE));
         	point = new GeoPoint((int) (lat * 1E6), (int) (lng * 1E6));
+        	points.add(point);
         	overlayitem = new PoiMarker(point, name, desc, id);
         	overlay.addOverlay(overlayitem);
 
@@ -78,6 +104,7 @@ public class PoiMapActivity extends MapActivity {
         }
         mapOverlays.add(overlay);
         mapView.invalidate();
+        fitPoints(points);
     }
     
     @Override
@@ -118,4 +145,18 @@ public class PoiMapActivity extends MapActivity {
     	return true;
     }
 	
+    @Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    // Handle item selection
+	    switch (item.getItemId()) {
+		    case R.id.myLocation:
+		    	moveTo(myLocation);
+		        return true;
+		    case R.id.showPoi:
+		    	fitPoints(points);
+		        return true;
+		    default:
+		        return super.onOptionsItemSelected(item);
+	    }
+	}
 }

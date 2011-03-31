@@ -62,6 +62,7 @@ public class PointOfInterests extends ListActivity implements  LocationListener 
         	ListItem item = new ListItem(id, name);
         	item.longitude = cursor.getDouble(cursor.getColumnIndex(PointOfInterestTbl.LONGITUDE));
         	item.latidute = cursor.getDouble(cursor.getColumnIndex(PointOfInterestTbl.LATITUDE));
+        	item.street = cursor.getString(cursor.getColumnIndex(PointOfInterestTbl.ADDRESS));
         	items.add(item);
         	cursor.moveToNext();
         }        

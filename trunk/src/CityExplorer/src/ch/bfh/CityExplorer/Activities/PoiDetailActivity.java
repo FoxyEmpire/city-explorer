@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.Display;
 import android.view.Menu;
@@ -19,11 +20,11 @@ import android.widget.TextView;
 
 public class PoiDetailActivity extends Activity implements ImageReceivedCallback {
 
-	private static final String TAG = "PoiDetailActivity";
-
 	private SQLiteDatabase db;
 	private int poiId;
 	private boolean enableNavigateTo;
+	private ImageReceiver imgReceiver1, imgReceiver2;
+	private Bitmap img1, img2;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +54,7 @@ public class PoiDetailActivity extends Activity implements ImageReceivedCallback
 		String sImageUrl1 = cursor.getString(cursor.getColumnIndex(PointOfInterestTbl.IMAGE_URL_1));
 		if (sImageUrl1 != null && sImageUrl1.length() > 0) {
 			ProgressBar pbar1 = (ProgressBar)findViewById(R.id.pbPoiDetail_Image1);
-			new ImageReceiver(sImageUrl1, this, ivImage1, display, pbar1);
+			imgReceiver1 = new ImageReceiver(sImageUrl1, this, ivImage1, display, pbar1);
 		}
 		else {
 			ivImage1.setVisibility(View.GONE);
@@ -90,7 +91,7 @@ public class PoiDetailActivity extends Activity implements ImageReceivedCallback
 		String sImageUrl2 = cursor.getString(cursor.getColumnIndex(PointOfInterestTbl.IMAGE_URL_2));
 		if (sImageUrl2 != null && sImageUrl2.length() > 0) {
 			ProgressBar pbar2 = (ProgressBar)findViewById(R.id.pbPoiDetail_Image2);
-			new ImageReceiver(sImageUrl2, this, ivImage2, display, pbar2);
+			imgReceiver2 = new ImageReceiver(sImageUrl2, this, ivImage2, display, pbar2);
 		}
 		else {
 			ivImage2.setVisibility(View.GONE);
@@ -119,7 +120,7 @@ public class PoiDetailActivity extends Activity implements ImageReceivedCallback
 	    // Handle item selection
 	    switch (item.getItemId()) {
 	    case R.id.navigateTo:
-	    	Intent intent = new Intent(this, MapsActivity.class);
+	    	Intent intent = new Intent(this, RouteMapActivity.class);
 	    	intent.putExtra("pointOfInterestId", poiId);
 			startActivity(intent);
 	        return true;
