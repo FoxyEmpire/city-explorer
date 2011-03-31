@@ -39,7 +39,7 @@ public class ImageDisplayer implements Runnable {
 		   dialog.show();
 		}
 		else{
-			
+			Bitmap temp = bmp;
 			if (bmp.getWidth() > display.getWidth()) {
 				int newWidth = display.getWidth();
 				int newHeight = bmp.getHeight() * newWidth / bmp.getWidth();
@@ -50,12 +50,14 @@ public class ImageDisplayer implements Runnable {
 		        Matrix matrix = new Matrix();
 		        matrix.postScale(scaleWidth, scaleHeight);
 
-		        Bitmap bmp1 = Bitmap.createBitmap(bmp, 0, 0,
+		        temp = Bitmap.createBitmap(bmp, 0, 0,
 		        		bmp.getWidth(), bmp.getHeight(), matrix, true);
-		        view.setImageBitmap(bmp1);
+		       
+			}
+			
+			 view.setImageBitmap(temp);
 				view.setVisibility(View.VISIBLE);
 				pbar.setVisibility(View.GONE);
-			}
 			
 			view.setOnClickListener(new OnClickListener(){
 				@Override
