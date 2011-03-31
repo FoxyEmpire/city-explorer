@@ -14,7 +14,7 @@ public class VideoActivity extends Activity {
         setContentView(R.layout.video);
         
         VideoView vv = (VideoView)this.findViewById(R.id.vvVideo_Video);
-        String fileName = "android.resource://" + getPackageName() + "/" + R.raw.fedi;
+        String fileName = "android.resource://" + getPackageName() + "/" + R.raw.cityexplorer;
         vv.setVideoURI(Uri.parse(fileName));
         vv.start();
 	}
