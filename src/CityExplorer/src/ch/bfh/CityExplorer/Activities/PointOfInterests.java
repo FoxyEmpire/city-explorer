@@ -141,7 +141,12 @@ public class PointOfInterests extends ListActivity implements  LocationListener 
 		ListItem listItem = (ListItem)getListView().getItemAtPosition(info.position);
 		switch (item.getItemId()) {
 		case R.id.miPointOfInterest_ToFavorit:
-			mStorage.InsertFavourite(listItem.id);
+			if (!mStorage.InsertFavourite(listItem.id)) {
+				AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+				dialog.setTitle("Hinweis");
+				dialog.setMessage("Dieser POI ist bereits in den Favoriten.");
+				dialog.show();
+			}
 			break;
 		case R.id.miPointOfInterest_NavigateTo:
 			Intent intent = new Intent(this, RouteMapActivity.class);

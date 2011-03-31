@@ -61,8 +61,7 @@ public class FavoritActivity extends ListActivity {
 			item.setLatidute(cursor.getDouble(cursor.getColumnIndex(PointOfInterestTbl.LATITUDE)));
 			items.add(item);
 			cursor.moveToNext();
-		}        
-
+		}
 
 		mAdapter = new FavoritListAdapter(this, items);
 		this.setListAdapter(mAdapter);

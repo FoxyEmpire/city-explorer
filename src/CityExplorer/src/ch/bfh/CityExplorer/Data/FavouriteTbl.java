@@ -11,7 +11,7 @@ public class FavouriteTbl implements IFavouriteColumn {
 	  * SQL Anweisung zur Schemadefinition.
 	  */
 	public static final String SQL_CREATE = " CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " ("
-		+ "id INTEGER PRIMARY KEY AUTOINCREMENT,"
+		+ "_id INTEGER PRIMARY KEY AUTOINCREMENT,"
 		+ "poi_id INTEGER REFERENCES " + PointOfInterestTbl.TABLE_NAME + "(id)"
 		+ ");";
 	
