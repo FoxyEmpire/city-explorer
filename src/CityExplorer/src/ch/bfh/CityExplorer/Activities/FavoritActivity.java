@@ -92,9 +92,10 @@ public class FavoritActivity extends ListActivity {
 				mStorage.DeleteFavourite(listItem.getId());
 				break;
 			case R.id.miFavoritMenu_NavigateTo:
-				Intent intent = new Intent(this, MapsActivity.class);
+				Intent intent = new Intent(this, RouteMapActivity.class);
 				intent.putExtra("pointOfInterestId", listItem.getId());
 				startActivity(intent);
+				break;
 			case R.id.miFavoritMenu_Cancel:
 				return true;
 		}
