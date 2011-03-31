@@ -51,6 +51,8 @@ public class ImageReceiver extends Thread {
         }
         catch (IOException e)
         {
+        	ImageDisplayer displayer = new ImageDisplayer(view, null, pbar, display);
+            callback.onImageReceived(displayer);
         	Log.e(TAG, "Error downloading bitmap: " + url, e);
         }
     }
