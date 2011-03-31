@@ -42,10 +42,17 @@ public class Route {
         }
         in.close();
 
-       return new JSONObject(sb.toString());
+       JSONObject json = new JSONObject(sb.toString());
+       String status = json.getString("status");
+       
+       if (status.equals("OVER_QUERY_LIMIT")) {
+    	   throw new GoogleException("Zuviele Abfragen auf google ausgeführt");
+       }
+       return json;
 	}
 	
 	public RouteInfo getRouteInfo() throws Exception {
+		
 		JSONArray jsonArray = GetJSON().getJSONArray("routes");
 		jsonArray = jsonArray.getJSONObject(0).getJSONArray("legs");
         JSONObject leg = jsonArray.getJSONObject(0);

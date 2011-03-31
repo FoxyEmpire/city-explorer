@@ -8,12 +8,12 @@ import java.util.Arrays;
 import java.util.List;
 
 import ch.bfh.CityExplorer.R;
-import ch.bfh.CityExplorer.Application.Route;
-import ch.bfh.CityExplorer.Application.RouteInfo;
+import ch.bfh.CityExplorer.Application.*;
 import ch.bfh.CityExplorer.Data.CityExplorerDatabase;
 import ch.bfh.CityExplorer.Data.CityExplorerStorage;
 import ch.bfh.CityExplorer.Data.IPointOfInterestColumn;
 import ch.bfh.CityExplorer.Data.PointOfInterestTbl;
+import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
@@ -24,6 +24,8 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.*;
 import android.widget.*;
 import android.widget.AdapterView.AdapterContextMenuInfo;
@@ -41,6 +43,30 @@ public class PointOfInterests extends ListActivity implements  LocationListener 
 	private Object lock = new Object();
 	private PointOfInterests me = this;
 	private LocationManager locationManager;
+	private ExceptionHandler exceptionHandler;
+	private String lastExceptionMessage;
+	private AlertDialog.Builder dialog;
+	private boolean dialogVisible;
+	private boolean isVisible;
+	
+	final Runnable runException = new Runnable(){
+
+		@Override
+		public void run() {
+			if (!dialogVisible){
+				for (LoadItemsTask task : tasks){
+					task.cancel(true);
+				}
+				tasks.clear();
+				dialogVisible =true;
+				dialog.setTitle("Fehler");
+				dialog.setMessage(lastExceptionMessage);
+				if (isVisible){
+				dialog.show();
+				}
+			}
+		}
+    };
 	
 	/** Called when the activity is first created. */
     @Override
@@ -78,6 +104,10 @@ public class PointOfInterests extends ListActivity implements  LocationListener 
         tasks = new ArrayList<LoadItemsTask>();
 
         mStorage = new CityExplorerStorage(this);       
+        exceptionHandler = new ExceptionHandler();
+        
+        dialog = new AlertDialog.Builder(this);
+        dialogVisible = false;
     }
     
 	@Override
@@ -90,6 +120,7 @@ public class PointOfInterests extends ListActivity implements  LocationListener 
 	@Override
 	public void onPause(){
 		super.onPause();
+		isVisible = false;
 		locationManager.removeUpdates(this);
 		for (LoadItemsTask task : tasks){
 			task.cancel(true);
@@ -99,6 +130,7 @@ public class PointOfInterests extends ListActivity implements  LocationListener 
 	
 	public void onResume(){
 		super.onResume();
+		isVisible = true;
 		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 120000L, 500.0f, this);
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 120000L, 500.0f, this);
 	}
@@ -126,6 +158,21 @@ public class PointOfInterests extends ListActivity implements  LocationListener 
 				break;
 		  }
 		  return true;
+	}
+	
+	private class ExceptionHandler extends Handler{
+		public void handleMessage(Message msg) {  
+			  
+            boolean error = msg.getData().getBoolean("error", false);  
+  
+            if (!error) {  
+                // set the geopoints (we can't just add the overlays  
+                // to the map here, because it's on a different thread  
+                lastExceptionMessage = (String) msg.obj;  
+               
+                post(runException); 
+            }
+		}
 	}
     
     private class ListItem {
@@ -222,16 +269,19 @@ public class PointOfInterests extends ListActivity implements  LocationListener 
     			
 				item.distance = info.getDistance();
 				item.duration = info.getDuration();
-	        }catch(Exception e){
+	        }catch(GoogleException e){
+	        	Message msg = new Message();
+				msg.obj = e.getMessage();
+				exceptionHandler.dispatchMessage(msg);
+	        }
+	        catch (Exception e){
 	        }
         }
     }
 
 	@Override
 	public void onLocationChanged(Location location) {
-		synchronized (lock) {
-			_currentLocation = location;
-		}
+		_currentLocation = location;
 		for (ListItem item : items) {
 			if (item.geoLoaded) continue;
 			

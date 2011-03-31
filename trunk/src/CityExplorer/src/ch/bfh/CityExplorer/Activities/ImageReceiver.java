@@ -41,25 +41,11 @@ public class ImageReceiver extends Thread {
             Bitmap bm = BitmapFactory.decodeStream(conn.getInputStream());
             
             if (bm == null){
-            	ImageDisplayer displayer = new ImageDisplayer(view, null, pbar);
+            	ImageDisplayer displayer = new ImageDisplayer(view, null, pbar, display);
                 callback.onImageReceived(displayer);
             }
             else{
-	            if (bm.getWidth() > display.getWidth()) {
-					int newWidth = display.getWidth();
-					int newHeight = bm.getHeight() * newWidth / bm.getWidth();
-					
-			        float scaleWidth = ((float) newWidth) / bm.getWidth();
-			        float scaleHeight = ((float) newHeight) / bm.getHeight();
-					
-			        Matrix matrix = new Matrix();
-			        matrix.postScale(scaleWidth, scaleHeight);
-	
-			        bm = Bitmap.createBitmap(bm, 0, 0,
-			        		bm.getWidth(), bm.getHeight(), matrix, true);
-				}
-	            
-	            ImageDisplayer displayer = new ImageDisplayer(view, bm, pbar);
+	            ImageDisplayer displayer = new ImageDisplayer(view, bm, pbar, display);
 	            callback.onImageReceived(displayer);
             }
         }
