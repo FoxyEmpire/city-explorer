@@ -24,6 +24,7 @@ public abstract class MapActivity extends com.google.android.maps.MapActivity im
 	protected MapController mapController;
 	protected LocationManager locationManager;
 	protected MapsItemizedOverlay itemizedOverlay;
+	protected GeoPoint myLocation;
 	
 	/** Called when the activity is first created. */
     @Override
@@ -67,16 +68,46 @@ public abstract class MapActivity extends com.google.android.maps.MapActivity im
      * @param point
      */
     protected void moveTo(GeoPoint point){
-    	mapController.animateTo(point);
+    	if (point != null){
+    		mapController.animateTo(point);
+    	}
     }
     
     protected boolean onMarkerClicked(PoiMarker marker){
+    	if (marker.getId()> 0){
+			Intent intent = new Intent(this, PoiDetailActivity.class);
+	    	intent.putExtra("poiId", marker.getId());
+			startActivity(intent);
+			return true;
+		}
     	return false;
     }
     
+    protected void fitPoints(List<GeoPoint> points) {
+        // set min and max for two points
+        int nwLat = -90 * 1000000;
+        int nwLng = 180 * 1000000;
+        int seLat = 90 * 1000000;
+        int seLng = -180 * 1000000;
+        // find bounding lats and lngs
+        for (GeoPoint point : points) {
+            nwLat = Math.max(nwLat, point.getLatitudeE6());
+            nwLng = Math.min(nwLng, point.getLongitudeE6());
+            seLat = Math.min(seLat, point.getLatitudeE6());
+            seLng = Math.max(seLng, point.getLongitudeE6());
+        }
+        GeoPoint center = new GeoPoint((nwLat + seLat) / 2, (nwLng + seLng) / 2);
+        // add padding in each direction
+        int spanLatDelta = (int) (Math.abs(nwLat - seLat) * 1.1);
+        int spanLngDelta = (int) (Math.abs(seLng - nwLng) * 1.1);
+
+        // fit map to points
+        mapController.animateTo(center);
+        mapController.zoomToSpan(spanLatDelta, spanLngDelta);
+    }
+    
     public void onLocationChanged(Location argLocation) {
-		GeoPoint point = new GeoPoint((int)(argLocation.getLatitude()*1E6), (int)(argLocation.getLongitude()*1E6));
-		moveTo(point);
+		myLocation = new GeoPoint((int)(argLocation.getLatitude()*1E6), (int)(argLocation.getLongitude()*1E6));
 	}
 	
 	public void onProviderDisabled(String provider) {}
@@ -114,14 +145,8 @@ public abstract class MapActivity extends com.google.android.maps.MapActivity im
 		
 		@Override
 		protected boolean onTap(int index) {
-			PoiMarker marker = markers.get(index);
-			
-			Intent intent = new Intent(mContext, PoiDetailActivity.class);
-	    	intent.putExtra("poiId", marker.getId());
-			startActivity(intent);
-
+			PoiMarker marker = markers.get(index);			
 			return onMarkerClicked(marker);
 		}
-		
 	}
 }

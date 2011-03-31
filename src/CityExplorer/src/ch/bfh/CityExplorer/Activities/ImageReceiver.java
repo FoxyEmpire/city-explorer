@@ -40,22 +40,28 @@ public class ImageReceiver extends Thread {
             conn.connect();
             Bitmap bm = BitmapFactory.decodeStream(conn.getInputStream());
             
-            if (bm.getWidth() > display.getWidth()) {
-				int newWidth = display.getWidth();
-				int newHeight = bm.getHeight() * newWidth / bm.getWidth();
-				
-		        float scaleWidth = ((float) newWidth) / bm.getWidth();
-		        float scaleHeight = ((float) newHeight) / bm.getHeight();
-				
-		        Matrix matrix = new Matrix();
-		        matrix.postScale(scaleWidth, scaleHeight);
-
-		        bm = Bitmap.createBitmap(bm, 0, 0,
-		        		bm.getWidth(), bm.getHeight(), matrix, true);
-			}
-            
-            ImageDisplayer displayer = new ImageDisplayer(view, bm, pbar);
-            callback.onImageReceived(displayer);
+            if (bm == null){
+            	ImageDisplayer displayer = new ImageDisplayer(view, null, pbar);
+                callback.onImageReceived(displayer);
+            }
+            else{
+	            if (bm.getWidth() > display.getWidth()) {
+					int newWidth = display.getWidth();
+					int newHeight = bm.getHeight() * newWidth / bm.getWidth();
+					
+			        float scaleWidth = ((float) newWidth) / bm.getWidth();
+			        float scaleHeight = ((float) newHeight) / bm.getHeight();
+					
+			        Matrix matrix = new Matrix();
+			        matrix.postScale(scaleWidth, scaleHeight);
+	
+			        bm = Bitmap.createBitmap(bm, 0, 0,
+			        		bm.getWidth(), bm.getHeight(), matrix, true);
+				}
+	            
+	            ImageDisplayer displayer = new ImageDisplayer(view, bm, pbar);
+	            callback.onImageReceived(displayer);
+            }
         }
         catch (IOException e)
         {
