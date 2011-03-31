@@ -204,6 +204,7 @@ public class FavoritActivity extends ListActivity {
     		}
     		if (found != null) {
     			items.remove(found);
+    			notifyDataSetChanged();
     		}
     	}
 
