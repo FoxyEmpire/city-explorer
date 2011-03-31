@@ -44,11 +44,11 @@ public class FavoritActivity extends ListActivity {
         
         db = new CityExplorerDatabase(this).getReadableDatabase();
         
-        Cursor cursor = db.rawQuery(
-        		"SELECT "+ PointOfInterestTbl.ALL_COLUMNS+
-        		" FROM "+PointOfInterestTbl.TABLE_NAME+
-        		" WHERE "+PointOfInterestTbl.ID+" IN " +
-				"(SELECT "+FavouriteTbl.POI_ID+" FROM "+FavouriteTbl.TABLE_NAME, new String[0]);
+        String query = "SELECT poi.*"
+        		+ " FROM " + PointOfInterestTbl.TABLE_NAME + " poi"
+        		+ " INNER JOIN " + FavouriteTbl.TABLE_NAME + " fav"
+        		+ " ON poi." + PointOfInterestTbl.ID + "= fav." + FavouriteTbl.POI_ID;
+        Cursor cursor = db.rawQuery(query, new String[0]);
         
         cursor.moveToFirst();
         ArrayList<ListItem> items = new ArrayList<ListItem>();
@@ -77,27 +77,29 @@ public class FavoritActivity extends ListActivity {
     
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-	  super.onCreateContextMenu(menu, v, menuInfo);
-	  MenuInflater inflater = getMenuInflater();
-	  inflater.inflate(R.menu.menupointofinterest, menu);
+		super.onCreateContextMenu(menu, v, menuInfo);
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.favoritmenu, menu);
 	}
 	
 	@Override
-	public boolean onContextItemSelected(MenuItem item){
+	public boolean onContextItemSelected(MenuItem item) {
 		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
 		ListItem listItem = (ListItem)getListView().getItemAtPosition(info.position);
-		  switch (item.getItemId()) {
-		  case R.id.miPointOfInterest_ToFavorit:
-			  mStorage.InsertFavourite(listItem.getId());
-			  break;
-		  case R.id.miPointOfInterest_NavigateTo:
-			  Intent intent = new Intent(this, MapsActivity.class);
-		    	intent.putExtra("pointOfInterestId", listItem.getId());
+		switch (item.getItemId()) {
+			case R.id.miFavoritMenu_Remove:
+				mStorage.DeleteFavourite(listItem.getId());
+				// TODO: Invalidate!
+				//mAdapter.notifyDataSetChanged();
+				break;
+			case R.id.miFavoritMenu_NavigateTo:
+				Intent intent = new Intent(this, MapsActivity.class);
+				intent.putExtra("pointOfInterestId", listItem.getId());
 				startActivity(intent);
-		  case R.id.miPointOfInterest_Cancel:
-			  return true;
-		  }
-		  return true;
+			case R.id.miFavoritMenu_Cancel:
+				return true;
+		}
+		return true;
 	}
     
     private class ListItem {
