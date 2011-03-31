@@ -46,22 +46,23 @@ public class HomeActivity extends Activity {
     }
     
     protected void OnClickMap(View view){
-    	Intent intent = new Intent(this, MapsActivity.class);
+    	//Intent intent = new Intent(this, MapsActivity.class);
+    	Intent intent = new Intent(this, PoiMapActivity.class);
 		startActivity(intent);
     }
     
     protected void OnClickListOfPointsOfInterests(View view){
-    	Intent intent = new Intent(this,GroupActivity.class);
+    	Intent intent = new Intent(this, GroupActivity.class);
 		startActivity(intent);
     }
     
     protected void OnClickFavorit(View view){
-    	Intent intent = new Intent(this,FavoritActivity.class);
+    	Intent intent = new Intent(this, FavoritActivity.class);
 		startActivity(intent);
     }
     
     protected void OnClickAbout(View view){
-    	Intent intent = new Intent(this,AboutActivity.class);
+    	Intent intent = new Intent(this, AboutActivity.class);
 		startActivity(intent);
     }
 }

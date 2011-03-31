@@ -22,13 +22,23 @@
 				android:id="@+id/tvPoiDetail_Name"
 				android:layout_width="fill_parent"
 				android:textStyle="bold"
-				android:textSize="10pt">
+				android:textSize="15pt">
 			</TextView>
-		    <ProgressBar android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="10px" android:id="@+id/pbPoiDetail_Image1"></ProgressBar>
+			
+		    <ProgressBar
+		    	android:layout_width="wrap_content"
+		    	android:layout_height="wrap_content"
+		    	android:layout_marginTop="15px"
+		    	android:id="@+id/pbPoiDetail_Image1">
+		    </ProgressBar>
 			
 		    <ImageView
 		    	android:id="@+id/ivPoiDetail_Image1"
-		    	android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_marginTop="10px" android:src="@drawable/icon" android:visibility="gone">
+		    	android:layout_height="wrap_content"
+		    	android:layout_width="wrap_content"
+		    	android:layout_marginTop="15px"
+		    	android:src="@drawable/icon"
+		    	android:visibility="gone">
 		    </ImageView>
 			
 		    <TextView
@@ -36,14 +46,17 @@
 		    	android:layout_height="wrap_content"
 		    	android:text="@string/description"
 		    	android:id="@+id/tvPoiDetail_DescriptionTitle"
-		    	android:textStyle="bold" android:layout_marginTop="10px">
+		    	android:textStyle="bold"
+		    	android:textSize="7pt"
+		    	android:layout_marginTop="15px">
 		    </TextView>
 			
 		    <TextView
 		    	android:layout_width="wrap_content"
 		    	android:layout_height="wrap_content"
 		    	android:text="TextView"
-		    	android:id="@+id/tvPoiDetail_Description">
+		    	android:id="@+id/tvPoiDetail_Description"
+		    	android:textSize="6pt">
 		    </TextView>
 		    
 		    <TextView
@@ -51,14 +64,17 @@
 		    	android:layout_height="wrap_content"
 		    	android:text="@string/opening_hours"
 		    	android:id="@+id/tvPoiDetail_OpeningHoursTitle"
-		    	android:textStyle="bold" android:layout_marginTop="10px">
+		    	android:textStyle="bold"
+		    	android:textSize="7pt"
+		    	android:layout_marginTop="15px">
 		    </TextView>
 		    
 		    <TextView
 		    	android:layout_width="wrap_content"
 		    	android:layout_height="wrap_content"
 		    	android:text="TextView"
-		    	android:id="@+id/tvPoiDetail_OpeningHours">
+		    	android:id="@+id/tvPoiDetail_OpeningHours"
+		    	android:textSize="6pt">
 		    </TextView>
 		    
 		    <TextView
@@ -66,21 +82,33 @@
 		    	android:layout_height="wrap_content"
 		    	android:text="@string/address"
 		    	android:id="@+id/tvPoiDetail_AddressTitle"
-		    	android:textStyle="bold" android:layout_marginTop="10px">
+		    	android:textStyle="bold"
+		    	android:layout_marginTop="15px"
+		    	android:textSize="7pt">
 		    </TextView>
 		    
 		    <TextView
 		    	android:layout_width="wrap_content"
 		    	android:layout_height="wrap_content"
 		    	android:text="TextView"
-		    	android:id="@+id/tvPoiDetail_Address">
+		    	android:id="@+id/tvPoiDetail_Address"
+		    	android:textSize="6pt">
 		    </TextView>
-		    <ProgressBar android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="10px" android:id="@+id/pbPoiDetail_Image2"></ProgressBar>
+		    
+		    <ProgressBar
+		    	android:layout_width="wrap_content"
+		    	android:layout_height="wrap_content"
+		    	android:layout_marginTop="15px"
+		    	android:id="@+id/pbPoiDetail_Image2">
+		    </ProgressBar>
 			
 		    <ImageView
 		    	android:id="@+id/ivPoiDetail_Image2"
 		    	android:layout_height="wrap_content"
-		    	android:layout_width="wrap_content" android:layout_marginTop="10px" android:src="@drawable/icon" android:visibility="gone">
+		    	android:layout_width="wrap_content"
+		    	android:layout_marginTop="15px"
+		    	android:src="@drawable/icon"
+		    	android:visibility="gone">
 		    </ImageView>
 		    
         </LinearLayout>
