@@ -10,4 +10,5 @@
     <string name="addFavorit">Zu meinen Favoriten</string>
     <string name="cancel">Abbrechen</string>
     <string name="categories">Kategorien</string>
+    <string name="removeFavorit">Aus Favoriten löschen</string>
 </resources>
