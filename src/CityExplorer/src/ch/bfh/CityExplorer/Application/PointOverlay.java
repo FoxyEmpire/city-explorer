@@ -27,7 +27,7 @@ public class PointOverlay extends Overlay{
         Paint paint = new Paint();  
         Point p = new Point();  
         projection.toPixels(point, p);
-        canvas.drawBitmap(drawable, p.x, p.y + drawable.getHeight(), paint);
+        canvas.drawBitmap(drawable, p.x, p.y - drawable.getHeight(), paint);
         super.draw(canvas, mapView, shadow);  
     }  
 }
