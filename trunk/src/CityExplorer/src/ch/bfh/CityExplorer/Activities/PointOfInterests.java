@@ -33,7 +33,7 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 import com.google.android.maps.GeoPoint;
 
 public class PointOfInterests extends ListActivity implements  LocationListener {
-	
+
 	private PointOfInteretsListAdapter mAdapter;
 	private SQLiteDatabase db;
 	private CityExplorerStorage mStorage;
@@ -48,7 +48,7 @@ public class PointOfInterests extends ListActivity implements  LocationListener 
 	private AlertDialog.Builder dialog;
 	private boolean dialogVisible;
 	private boolean isVisible;
-	
+
 	final Runnable runException = new Runnable(){
 
 		@Override
@@ -62,61 +62,61 @@ public class PointOfInterests extends ListActivity implements  LocationListener 
 				dialog.setTitle("Fehler");
 				dialog.setMessage(lastExceptionMessage);
 				if (isVisible){
-				dialog.show();
+					dialog.show();
 				}
 			}
 		}
-    };
-	
+	};
+
 	/** Called when the activity is first created. */
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
 
-        db = new CityExplorerDatabase(this).getReadableDatabase();
-        
-        int categoryId = getIntent().getExtras().getInt("categoryId");
-        
-        Cursor cursor = db.query(PointOfInterestTbl.TABLE_NAME,
-        		PointOfInterestTbl.ALL_COLUMNS, PointOfInterestTbl.CATEGORY_ID + " = ?", new String[]{String.valueOf(categoryId)},
-        		IPointOfInterestColumn.NAME, null, null);
-        cursor.moveToFirst();
-        
-        while (cursor.isAfterLast() == false) {
-        	int id = cursor.getInt(cursor.getColumnIndex(PointOfInterestTbl.ID));
-        	String name = cursor.getString(cursor.getColumnIndex(PointOfInterestTbl.NAME));
-        	ListItem item = new ListItem(id, name);
-        	item.longitude = cursor.getDouble(cursor.getColumnIndex(PointOfInterestTbl.LONGITUDE));
-        	item.latidute = cursor.getDouble(cursor.getColumnIndex(PointOfInterestTbl.LATITUDE));
-        	item.street = cursor.getString(cursor.getColumnIndex(PointOfInterestTbl.ADDRESS));
-        	items.add(item);
-        	cursor.moveToNext();
-        }        
-        cursor.close();
-       
-        mAdapter = new PointOfInteretsListAdapter(this, items);
-        this.setListAdapter(mAdapter);
-        
-        registerForContextMenu(getListView());
-        
-        locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
-        
-        tasks = new ArrayList<LoadItemsTask>();
+		db = new CityExplorerDatabase(this).getReadableDatabase();
 
-        mStorage = new CityExplorerStorage(this);       
-        exceptionHandler = new ExceptionHandler();
-        
-        dialog = new AlertDialog.Builder(this);
-        dialogVisible = false;
-    }
-    
+		int categoryId = getIntent().getExtras().getInt("categoryId");
+
+		Cursor cursor = db.query(PointOfInterestTbl.TABLE_NAME,
+				PointOfInterestTbl.ALL_COLUMNS, PointOfInterestTbl.CATEGORY_ID + " = ?", new String[]{String.valueOf(categoryId)},
+				IPointOfInterestColumn.NAME, null, null);
+		cursor.moveToFirst();
+
+		while (cursor.isAfterLast() == false) {
+			int id = cursor.getInt(cursor.getColumnIndex(PointOfInterestTbl.ID));
+			String name = cursor.getString(cursor.getColumnIndex(PointOfInterestTbl.NAME));
+			ListItem item = new ListItem(id, name);
+			item.longitude = cursor.getDouble(cursor.getColumnIndex(PointOfInterestTbl.LONGITUDE));
+			item.latidute = cursor.getDouble(cursor.getColumnIndex(PointOfInterestTbl.LATITUDE));
+			item.street = cursor.getString(cursor.getColumnIndex(PointOfInterestTbl.ADDRESS));
+			items.add(item);
+			cursor.moveToNext();
+		}        
+		cursor.close();
+
+		mAdapter = new PointOfInteretsListAdapter(this, items);
+		this.setListAdapter(mAdapter);
+
+		registerForContextMenu(getListView());
+
+		locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+
+		tasks = new ArrayList<LoadItemsTask>();
+
+		mStorage = new CityExplorerStorage(this);       
+		exceptionHandler = new ExceptionHandler();
+
+		dialog = new AlertDialog.Builder(this);
+		dialogVisible = false;
+	}
+
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-	  super.onCreateContextMenu(menu, v, menuInfo);
-	  MenuInflater inflater = getMenuInflater();
-	  inflater.inflate(R.menu.menupointofinterest, menu);
+		super.onCreateContextMenu(menu, v, menuInfo);
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.menupointofinterest, menu);
 	}
-	
+
 	@Override
 	public void onPause(){
 		super.onPause();
@@ -127,185 +127,185 @@ public class PointOfInterests extends ListActivity implements  LocationListener 
 		}
 		tasks.clear();
 	}
-	
+
 	public void onResume(){
 		super.onResume();
 		isVisible = true;
 		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 120000L, 500.0f, this);
-        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 120000L, 500.0f, this);
+		locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 120000L, 500.0f, this);
 	}
-	
+
 	@Override
 	public boolean onContextItemSelected(MenuItem item){
 		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
 		ListItem listItem = (ListItem)getListView().getItemAtPosition(info.position);
-		  switch (item.getItemId()) {
-		  case R.id.miPointOfInterest_ToFavorit:
-			  mStorage.InsertFavourite(listItem.id);
-			  break;
-		  case R.id.miPointOfInterest_NavigateTo:
-			  Intent intent = new Intent(this, RouteMapActivity.class);
-		    	intent.putExtra("pointOfInterestId", listItem.id);
-				startActivity(intent);
-				break;
-		  case R.id.miPointOfInterest_Cancel:
-			  return true;
-		  case R.id.miPointOfInterest_Information:
-			  	Intent intentInformation = new Intent(me, PoiDetailActivity.class);
-			  	intentInformation.putExtra("poiId", listItem.id);
-			  	intentInformation.putExtra("enableNavigateTo", true);
-				startActivity(intentInformation);
-				break;
-		  }
-		  return true;
+		switch (item.getItemId()) {
+		case R.id.miPointOfInterest_ToFavorit:
+			mStorage.InsertFavourite(listItem.id);
+			break;
+		case R.id.miPointOfInterest_NavigateTo:
+			Intent intent = new Intent(this, RouteMapActivity.class);
+			intent.putExtra("pointOfInterestId", listItem.id);
+			startActivity(intent);
+			break;
+		case R.id.miPointOfInterest_Cancel:
+			return true;
+		case R.id.miPointOfInterest_Information:
+			Intent intentInformation = new Intent(me, PoiDetailActivity.class);
+			intentInformation.putExtra("poiId", listItem.id);
+			intentInformation.putExtra("enableNavigateTo", true);
+			startActivity(intentInformation);
+			break;
+		}
+		return true;
 	}
-	
+
 	private class ExceptionHandler extends Handler{
 		public void handleMessage(Message msg) {  
-			  
-            boolean error = msg.getData().getBoolean("error", false);  
-  
-            if (!error) {  
-                // set the geopoints (we can't just add the overlays  
-                // to the map here, because it's on a different thread  
-                lastExceptionMessage = (String) msg.obj;  
-               
-                post(runException); 
-            }
+
+			boolean error = msg.getData().getBoolean("error", false);  
+
+			if (!error) {  
+				// set the geopoints (we can't just add the overlays  
+				// to the map here, because it's on a different thread  
+				lastExceptionMessage = (String) msg.obj;  
+
+				post(runException); 
+			}
 		}
 	}
-    
-    private class ListItem {
-    	private int id;
+
+	private class ListItem {
+		private int id;
 		private String name;
-    	private String street;
-    	private String distance;
-    	private String duration;
-    	private double latidute;
-    	private double longitude;
-    	private boolean geoLoaded;
-    	
-    	public ListItem(int id, String name){
-    		this.id = id;
-    		this.name = name;
-    		distance = "~ m";
-    		duration = "~ mins";
-    	}
-    }
-    
-    private class PointOfInteretsListAdapter extends BaseAdapter {
-    	
-    	private final LayoutInflater mLayoutInflater;
-    	private List<ListItem> items;
+		private String street;
+		private String distance;
+		private String duration;
+		private double latidute;
+		private double longitude;
+		private boolean geoLoaded;
 
-    	public PointOfInteretsListAdapter(Context pContext, List<ListItem> items){
-    			mLayoutInflater = (LayoutInflater) pContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-    			this.items = items;
-    	}
-    	
-    	@Override
-    	public int getCount() {return items.size();}
+		public ListItem(int id, String name){
+			this.id = id;
+			this.name = name;
+			distance = "~ m";
+			duration = "~ mins";
+		}
+	}
 
-    	@Override
-    	public Object getItem(int pPosition) {
-    		return items.get(pPosition);
-    	}
-    	
-    	public void setItem(ListItem item){
-    		for (ListItem i : items){
-    			if (i.id == item.id){
-    				i = item;
-    			}
-    		}
-    		notifyDataSetChanged();
-    	}
+	private class PointOfInteretsListAdapter extends BaseAdapter {
 
-    	@Override
-    	public long getItemId(int arg0) {return 0;}
+		private final LayoutInflater mLayoutInflater;
+		private List<ListItem> items;
 
-    	@Override
-    	public View getView(int pPosition, View convertView, ViewGroup parent) {
-    		if (convertView == null) {
-    			convertView = mLayoutInflater.inflate(R.layout.listpointofintersts, parent, false);
-    		}
+		public PointOfInteretsListAdapter(Context pContext, List<ListItem> items){
+			mLayoutInflater = (LayoutInflater) pContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			this.items = items;
+		}
 
-    				((TextView) convertView.findViewById(R.id.tvPointOfInterest_Name)).setText(items.get(pPosition).name);
-    				((TextView) convertView.findViewById(R.id.tvPointOfInterests_Distance)).setText(items.get(pPosition).distance);
-    				
-    				((TextView) convertView.findViewById(R.id.tvPointOfInterests_Street)).setText(items.get(pPosition).street);
-    				((TextView) convertView.findViewById(R.id.tvPointOfInterests_Time)).setText(items.get(pPosition).duration);
-    		return convertView;
-    	}
-    }
-    
-    private class LoadItemsTask extends AsyncTask<ListItem, Void, ListItem> {
+		@Override
+		public int getCount() {return items.size();}
 
-        @Override
-        protected ListItem doInBackground(ListItem... params) {
-        	for (int i=0; i<params.length; i++){
-        		UpdateListItem(params[i]);
-        	}
-            return params[0];
-        }
+		@Override
+		public Object getItem(int pPosition) {
+			return items.get(pPosition);
+		}
 
-        @Override
-        protected void onPostExecute(ListItem result) {
-            mAdapter.setItem(result);
-            result.geoLoaded = true;
-        }
-       
-        private void UpdateListItem(ListItem item){
-        	try{
-    			if (_currentLocation == null) return;
-    			
-    			double lat = _currentLocation.getLatitude();
-    			double lng = _currentLocation.getLongitude();
-    			
-    			GeoPoint src = new GeoPoint((int)(lat * 1E6), (int)(lng*1E6));
-    			GeoPoint dest = new GeoPoint((int)(item.latidute * 1E6), (int)(item.longitude*1E6));
-    			
-    			Route route = new Route(src, dest);
-        		RouteInfo info = route.getRouteInfo();
-    			
+		public void setItem(ListItem item){
+			for (ListItem i : items){
+				if (i.id == item.id){
+					i = item;
+				}
+			}
+			notifyDataSetChanged();
+		}
+
+		@Override
+		public long getItemId(int arg0) {return 0;}
+
+		@Override
+		public View getView(int pPosition, View convertView, ViewGroup parent) {
+			if (convertView == null) {
+				convertView = mLayoutInflater.inflate(R.layout.listpointofintersts, parent, false);
+			}
+
+			((TextView) convertView.findViewById(R.id.tvPointOfInterest_Name)).setText(items.get(pPosition).name);
+			((TextView) convertView.findViewById(R.id.tvPointOfInterests_Distance)).setText(items.get(pPosition).distance);
+
+			((TextView) convertView.findViewById(R.id.tvPointOfInterests_Street)).setText(items.get(pPosition).street);
+			((TextView) convertView.findViewById(R.id.tvPointOfInterests_Time)).setText(items.get(pPosition).duration);
+			return convertView;
+		}
+	}
+
+	private class LoadItemsTask extends AsyncTask<ListItem, Void, ListItem> {
+
+		@Override
+		protected ListItem doInBackground(ListItem... params) {
+			for (int i=0; i<params.length; i++){
+				UpdateListItem(params[i]);
+			}
+			return params[0];
+		}
+
+		@Override
+		protected void onPostExecute(ListItem result) {
+			mAdapter.setItem(result);
+			result.geoLoaded = true;
+		}
+
+		private void UpdateListItem(ListItem item){
+			try{
+				if (_currentLocation == null) return;
+
+				double lat = _currentLocation.getLatitude();
+				double lng = _currentLocation.getLongitude();
+
+				GeoPoint src = new GeoPoint((int)(lat * 1E6), (int)(lng*1E6));
+				GeoPoint dest = new GeoPoint((int)(item.latidute * 1E6), (int)(item.longitude*1E6));
+
+				Route route = new Route(src, dest);
+				RouteInfo info = route.getRouteInfo();
+
 				item.distance = info.getDistance();
 				item.duration = info.getDuration();
-	        }catch(GoogleException e){
-	        	Message msg = new Message();
+			}catch(GoogleException e){
+				Message msg = new Message();
 				msg.obj = e.getMessage();
 				exceptionHandler.dispatchMessage(msg);
-	        }
-	        catch (Exception e){
-	        }
-        }
-    }
+			}
+			catch (Exception e){
+			}
+		}
+	}
 
 	@Override
 	public void onLocationChanged(Location location) {
 		_currentLocation = location;
 		for (ListItem item : items) {
 			if (item.geoLoaded) continue;
-			
-        	LoadItemsTask task = new LoadItemsTask();
-        	tasks.add(task);
-        	task.execute(item);
-        }
+
+			LoadItemsTask task = new LoadItemsTask();
+			tasks.add(task);
+			task.execute(item);
+		}
 	}
 
 	@Override
 	public void onProviderDisabled(String arg) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void onProviderEnabled(String arg) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void onStatusChanged(String arg0, int arg1, Bundle arg2) {
 		// TODO Auto-generated method stub
-		
+
 	}
 }
