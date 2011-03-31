@@ -71,25 +71,7 @@ public class CityExplorerDatabase extends SQLiteOpenHelper {
 		Map<String, Long> poiIds = new HashMap<String, Long>();
 		SQLiteStatement stmtInsertPoi = db.compileStatement(PointOfInterestTbl.STMT_FULL_INSERT);
 
-		
-		//PointOfInterestTbl.InsertPointOfInterest(
-		//		db,
-		//		cityIds.get("Zürich"),
-		//		categoryIds.get("Bauwerke"),
-		//		"Grossmünster",
-		//		"Das Wahrzeichen Zürichs beherrscht mit der mächtigen Doppelturmfassade den oberen Limmatraum",
-		//		47.370000,
-		//		8.544167,
-		//		"http://www.grossmuenster.ch");
-		
-		
-		// QUELLE: http://www.zuerich-reisefuehrer.de/grossmuenster.html
-
-		
-		
 		stmtInsertPoi.bindLong(1, cityIds.get("Zürich"));
-
-		
 		
 		// Kino abaton
 		stmtInsertPoi.bindLong(2, categoryIds.get("Kinos"));
