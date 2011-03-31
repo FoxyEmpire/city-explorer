@@ -106,10 +106,10 @@ public class PoiDetailActivity extends Activity implements ImageReceivedCallback
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		if (poiId >= 0){
-	    MenuInflater inflater = getMenuInflater();
-	    inflater.inflate(R.menu.poidetailmenu, menu);
-	    menu.getItem(0).setEnabled(enableNavigateTo);
-	    return true;
+		    MenuInflater inflater = getMenuInflater();
+		    inflater.inflate(R.menu.poidetailmenu, menu);
+		    menu.getItem(0).setEnabled(enableNavigateTo);
+		    return true;
 		}
 		return false;
 	}

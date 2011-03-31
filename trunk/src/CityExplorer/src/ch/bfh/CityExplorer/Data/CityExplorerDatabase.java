@@ -11,7 +11,7 @@ import android.database.sqlite.SQLiteStatement;
 public class CityExplorerDatabase extends SQLiteOpenHelper {
 
 	private static final String DATABASE_NAME = "cityexplorer.db";
-	private static final int DATABASE_VERSION = 1;
+	private static final int DATABASE_VERSION = 7;
 	
 	public CityExplorerDatabase(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -525,8 +525,8 @@ public class CityExplorerDatabase extends SQLiteOpenHelper {
 		stmtInsertPoi.bindDouble(6, 8.540191);
 		stmtInsertPoi.bindString(7, "http://www.railcity.ch/index_zuerich.htm");
 		stmtInsertPoi.bindNull(8);
-		stmtInsertPoi.bindString(9, "http://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Bahnhofplatz_-_Hauptbahnhof_-_Bahnhofstrasse_Z%C3%BCrich_2010-09-21_14-34-44_ShiftN.jpg/800px-Bahnhofplatz_-_Hauptbahnhof_-_Bahnhofstrasse_Z%C3%BCrich_2010-09-21_14-34-44_ShiftN.jpg");
-		stmtInsertPoi.bindString(10, "http://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Shopville_zurich.jpg/800px-Shopville_zurich.jpg");
+		stmtInsertPoi.bindString(9, "http://www.sengers.ch/izueri/hauptbahnhof/ZH-HB-16.jpg");
+		stmtInsertPoi.bindString(10, "http://www.sengers.ch/izueri/hauptbahnhof/ZH-HB-04.jpg");
 		stmtInsertPoi.bindString(11, "Bahnhofplatz\n8001 Zürich");
 		poiIds.put("Hauptbahnhof", stmtInsertPoi.executeInsert());
 		
@@ -539,7 +539,7 @@ public class CityExplorerDatabase extends SQLiteOpenHelper {
 		stmtInsertPoi.bindString(7, "http://www.ethz.ch");
 		stmtInsertPoi.bindNull(8);
 		stmtInsertPoi.bindString(9, "http://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/ETH_geradlinig_1.jpg/800px-ETH_geradlinig_1.jpg");
-		stmtInsertPoi.bindString(10, "http://www.ethz.ch/media/pictures/zentrum/eth_zentrum_luftaufnahme1_thumb.jpg?hires");
+		stmtInsertPoi.bindString(10, "http://www.ethz.ch/media/pictures/zentrum/eth_zentrum_luftaufnahme1_thumb.jpg");
 		stmtInsertPoi.bindString(11, "Rämistrasse 101\n8092 Zürich");
 		poiIds.put("ETH Zürich", stmtInsertPoi.executeInsert());
 		
@@ -547,12 +547,12 @@ public class CityExplorerDatabase extends SQLiteOpenHelper {
 		stmtInsertPoi.bindLong(2, categoryIds.get("Sehenswürdigkeiten"));
 		stmtInsertPoi.bindString(3, "Fraumünster");
 		stmtInsertPoi.bindString(4, "Die Kirche mit Frauenkloster wurde 853 von König Ludwig dem Deutschen gestifet und von Frauen des europäischen Hochadels bewohnt. Das Kloster genoss die Gunst von Königen und die Äbtissin hatte das Münzrecht von Zürich bis ins 13. Jh. Nach der Reformation kamen Kirche und Kloster in den Besitz der Stadt.\nBedeutende Bauteile sind der romanische Chor und das hochgewölbte Querschiff. Das Langhaus wurde 1911 letztmals umgebaut, nachdem schon im 18.Jh. der Nordturm erhöht und der Südturm abgetragen worden war.\nBedeutendster Schmuck neben der grössten Orgel im Kanton Zürich mit 5793 Pfeifen sind seine Farbfenster: die Nordfenster im Querschiff (1945) sind gefertigt von Augusto Giacometti, Alberto Giacomettis Onkel. Der fünfteilige Fensterzyklus im Chor (1970) und die Rosette im südlichen Querschiff (1978) sind Werke Marc Chagalls. Im Kreuzgang befindet sich ein Freskenzyklus von Paul Bodmer zur Gründung des Fraumünsters. Zu den Hauptattraktionen des Münsters zählen heute die Glasfenster von Chagall und Giacometti.");
-		stmtInsertPoi.bindDouble(5, 47.372084);
-		stmtInsertPoi.bindDouble(6, 8.543691);
+		stmtInsertPoi.bindDouble(5, 47.369790);
+		stmtInsertPoi.bindDouble(6, 8.541532);
 		stmtInsertPoi.bindString(7, "http://www.fraumuenster.ch");
 		stmtInsertPoi.bindString(8, "November - März 10:00 - 16:00 Uhr\nApril - Oktober 10:00 - 18:00 Uhr");
-		stmtInsertPoi.bindString(9, "http://farm3.static.flickr.com/2125/2462003873_9a07336f4b.jpg");
-		stmtInsertPoi.bindString(10, "http://mw2.google.com/mw-panoramio/photos/medium/9725570.jpg");
+		stmtInsertPoi.bindString(9, "http://mw2.google.com/mw-panoramio/photos/medium/9725570.jpg");
+		stmtInsertPoi.bindString(10, "http://www.sengers.ch/izueri/kirchen/fraumuenster3.jpg");
 		stmtInsertPoi.bindString(11, "Münsterhof\n8001 Zürich");
 		poiIds.put("Fraumünster", stmtInsertPoi.executeInsert());
 		
@@ -577,7 +577,7 @@ public class CityExplorerDatabase extends SQLiteOpenHelper {
 		stmtInsertPoi.bindDouble(6, 8.541307);
 		stmtInsertPoi.bindNull(7);
 		stmtInsertPoi.bindNull(8);
-		stmtInsertPoi.bindString(9, "http://images.gadmin.st.s3.amazonaws.com/n20505/images/zuerich/detail_breit/detailboard_lindenhof_7436-1.jpg");
+		stmtInsertPoi.bindString(9, "http://www.sengers.ch/izueri/lindenhof/DSC_3258.jpg");
 		stmtInsertPoi.bindString(10, "http://www.sengers.ch/izueri/lindenhof/lindenhof-limmatquai.jpg");
 		stmtInsertPoi.bindNull(11);
 		poiIds.put("Lindenhof", stmtInsertPoi.executeInsert());
@@ -603,8 +603,8 @@ public class CityExplorerDatabase extends SQLiteOpenHelper {
 		stmtInsertPoi.bindDouble(6, 8.540781);
 		stmtInsertPoi.bindString(7, "http://www.st-peter-zh.ch");
 		stmtInsertPoi.bindString(8, "Montag - Freitag: 8:00 - 18:00 Uhr\nSamstag: 10:00 - 16:00 Uhr\nSonntag: ca. 11:00 - 17:00 Uhr");
-		stmtInsertPoi.bindString(9, "http://images.gadmin.st.s3.amazonaws.com/n20505/images/zuerich/detail_breit/detailboard_stpeterkirche_8086-1.jpg");
-		stmtInsertPoi.bindString(10, "http://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/St._Peter_Z%C3%BCrich_-_Wasserkirche_2010-08-31_16-38-16.JPG/800px-St._Peter_Z%C3%BCrich_-_Wasserkirche_2010-08-31_16-38-16.JPG");
+		stmtInsertPoi.bindString(9, "http://de.academic.ru/pictures/dewiki/115/st_peter_zuerich.jpg");
+		stmtInsertPoi.bindString(10, "http://images.gadmin.st.s3.amazonaws.com/n20505/images/zuerich/detail_breit/detailboard_stpeterkirche_8086-1.jpg");
 		stmtInsertPoi.bindString(11, "Schlüssel-Gasse\n8000 Zürich");
 		poiIds.put("St. Peter", stmtInsertPoi.executeInsert());
 		

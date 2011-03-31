@@ -44,6 +44,7 @@ public abstract class MapActivity extends com.google.android.maps.MapActivity im
         mapView.getOverlays().add(itemizedOverlay);
     }
     
+    @Override
     protected boolean isRouteDisplayed() {
 		return false;
 	}
@@ -85,9 +86,15 @@ public abstract class MapActivity extends com.google.android.maps.MapActivity im
     protected class MapsItemizedOverlay extends ItemizedOverlay {
 		
 		private List<PoiMarker> markers = new ArrayList<PoiMarker>();
+		private Context mContext;
 		
 		public MapsItemizedOverlay(Drawable defaultMarker) {
 			super(boundCenterBottom(defaultMarker));
+		}
+		
+		public MapsItemizedOverlay(Drawable defaultMarker, Context context) {
+			super(boundCenterBottom(defaultMarker));
+			mContext = context;
 		}
 		
 		public void addOverlay(PoiMarker marker) {
@@ -109,6 +116,10 @@ public abstract class MapActivity extends com.google.android.maps.MapActivity im
 		protected boolean onTap(int index) {
 			PoiMarker marker = markers.get(index);
 			
+			Intent intent = new Intent(mContext, PoiDetailActivity.class);
+	    	intent.putExtra("poiId", marker.getId());
+			startActivity(intent);
+
 			return onMarkerClicked(marker);
 		}
 		
